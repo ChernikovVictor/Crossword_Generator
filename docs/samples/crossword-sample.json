@@ -1,0 +1,96 @@
+{
+  "id": "12345",
+  "name": "sample crossword",
+  "cells": [
+    [
+      {
+        "id": "00",
+        "active": false
+      },
+      {
+        "id": "01",
+        "active": true,
+        "visible": false,
+        "value": "М"
+      },
+      {
+        "id": "02",
+        "active": false
+      },
+      {
+        "id": "03",
+        "active": true,
+        "visible": false,
+        "value": "Ш"
+      }
+    ],
+    [
+      {
+        "id": "10",
+        "active": true,
+        "visible": false,
+        "value": "П"
+      },
+      {
+        "id": "11",
+        "active": true,
+        "visible": false,
+        "value": "А"
+      },
+      {
+        "id": "12",
+        "active": true,
+        "visible": false,
+        "value": "П"
+      },
+      {
+        "id": "13",
+        "active": true,
+        "visible": false,
+        "value": "А"
+      }
+    ],
+    [
+      {
+        "id": "20",
+        "active": false
+      },
+      {
+        "id": "21",
+        "active": true,
+        "visible": false,
+        "value": "М"
+      },
+      {
+        "id": "22",
+        "active": false
+      },
+      {
+        "id": "23",
+        "active": true,
+        "visible": false,
+        "value": "Х"
+      }
+    ],
+    [
+      {
+        "id": "30",
+        "active": false
+      },
+      {
+        "id": "31",
+        "active": true,
+        "visible": false,
+        "value": "А"
+      },
+      {
+        "id": "32",
+        "active": false
+      },
+      {
+        "id": "33",
+        "active": false
+      }
+    ]
+  ]
+}
