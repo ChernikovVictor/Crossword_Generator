@@ -20,7 +20,7 @@ public class SystemDaoImpl implements SystemDao {
 
     private final String CREDENTIALS_URL = STORAGE_URL + "/credentials";
 
-    private JsonLoader<Credentials> jsonLoader = new JsonLoader<>(Credentials.class);
+    private final JsonLoader<Credentials> jsonLoader = new JsonLoader<>(Credentials.class);
 
     @Override
     public List<Credentials> getAllUsers() {
