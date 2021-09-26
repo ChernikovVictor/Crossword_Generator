@@ -44,4 +44,10 @@ public class CrosswordDaoImpl implements CrosswordDao {
         List<Crossword> crosswords = getAllCrosswords();
         return crosswords.stream().filter(c -> c.getId().equals(id)).findFirst();
     }
+
+    @Override
+    public void save(Crossword crossword) throws IOException {
+        String filepath = CROSSWORDS_URL + PATH_SEPARATOR + crossword.getName() + JSON_EXTENSION;
+        jsonLoader.saveAsJson(crossword, filepath);
+    }
 }

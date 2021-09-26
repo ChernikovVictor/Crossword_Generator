@@ -1,0 +1,101 @@
+{
+  "id" : "070894f2-9e72-49c7-a76b-08b9a952698f",
+  "name" : "new space crossword",
+  "cells" : [ [ {
+    "id" : "00",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "01",
+    "active" : true,
+    "value" : "М",
+    "originalValue" : "М",
+    "definitions" : [ "Родитель женского пола" ]
+  }, {
+    "id" : "02",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "03",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "Ш",
+    "definitions" : [ "Угроза королю в шахматах" ]
+  } ], [ {
+    "id" : "10",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "П",
+    "definitions" : [ "Родитель мужского пола" ]
+  }, {
+    "id" : "11",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "А",
+    "definitions" : [ "Родитель мужского пола", "Родитель женского пола" ]
+  }, {
+    "id" : "12",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "П",
+    "definitions" : [ "Родитель мужского пола" ]
+  }, {
+    "id" : "13",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "А",
+    "definitions" : [ "Родитель мужского пола", "Угроза королю в шахматах" ]
+  } ], [ {
+    "id" : "20",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "21",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "М",
+    "definitions" : [ "Родитель женского пола" ]
+  }, {
+    "id" : "22",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "23",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "Х",
+    "definitions" : [ "Угроза королю в шахматах" ]
+  } ], [ {
+    "id" : "30",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "31",
+    "active" : true,
+    "value" : "",
+    "originalValue" : "А",
+    "definitions" : [ "Родитель женского пола" ]
+  }, {
+    "id" : "32",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  }, {
+    "id" : "33",
+    "active" : false,
+    "value" : null,
+    "originalValue" : null,
+    "definitions" : null
+  } ] ]
+}

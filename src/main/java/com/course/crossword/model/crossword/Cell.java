@@ -14,8 +14,8 @@ public class Cell implements Serializable {
 
     private String id;
     private boolean active;
-    private boolean visible;
     private String value;
+    private String originalValue;
     private List<String> definitions;
 
 }

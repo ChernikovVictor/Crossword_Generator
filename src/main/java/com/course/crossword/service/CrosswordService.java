@@ -11,4 +11,6 @@ public interface CrosswordService {
 
     Crossword getById(String id);
 
+    void save(Crossword crossword, String crosswordName, String id);
+
 }

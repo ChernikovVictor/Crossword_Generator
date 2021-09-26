@@ -5,10 +5,7 @@ import com.course.crossword.model.crossword.Crossword;
 import com.course.crossword.service.CrosswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +28,15 @@ public class CrosswordController {
     }
 
     @GetMapping(value = "/crossword")
-    public Crossword getCrosswordById(@RequestParam(value = "id") String id) {
+    public Crossword getCrosswordById(@RequestParam String id) {
         return crosswordService.getById(id);
+    }
+
+    @PostMapping(value = "/crossword")
+    public ResponseEntity saveCrossword(@RequestParam String name,
+                                        @RequestParam(required = false) String id,
+                                        @RequestBody Crossword crossword) {
+        crosswordService.save(crossword, name, id);
+        return ResponseEntity.ok().build();
     }
 }

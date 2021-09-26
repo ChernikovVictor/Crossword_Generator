@@ -10,8 +10,8 @@
       {
         "id": "01",
         "active": true,
-        "visible": false,
-        "value": "М",
+        "value": "",
+        "originalValue": "М",
         "definitions": [
           "Родитель женского пола"
         ]
@@ -23,8 +23,8 @@
       {
         "id": "03",
         "active": true,
-        "visible": false,
-        "value": "Ш",
+        "value": "",
+        "originalValue": "Ш",
         "definitions": [
           "Угроза королю в шахматах"
         ]
@@ -34,8 +34,8 @@
       {
         "id": "10",
         "active": true,
-        "visible": false,
-        "value": "П",
+        "value": "",
+        "originalValue": "П",
         "definitions": [
           "Родитель мужского пола"
         ]
@@ -43,8 +43,8 @@
       {
         "id": "11",
         "active": true,
-        "visible": false,
-        "value": "А",
+        "value": "",
+        "originalValue": "А",
         "definitions": [
           "Родитель мужского пола", "Родитель женского пола"
         ]
@@ -52,8 +52,8 @@
       {
         "id": "12",
         "active": true,
-        "visible": false,
-        "value": "П",
+        "value": "",
+        "originalValue": "П",
         "definitions": [
           "Родитель мужского пола"
         ]
@@ -61,8 +61,8 @@
       {
         "id": "13",
         "active": true,
-        "visible": false,
-        "value": "А",
+        "value": "",
+        "originalValue": "А",
         "definitions": [
           "Родитель мужского пола", "Угроза королю в шахматах"
         ]
@@ -76,8 +76,8 @@
       {
         "id": "21",
         "active": true,
-        "visible": false,
-        "value": "М",
+        "value": "",
+        "originalValue": "М",
         "definitions": [
           "Родитель женского пола"
         ]
@@ -89,8 +89,8 @@
       {
         "id": "23",
         "active": true,
-        "visible": false,
-        "value": "Х",
+        "value": "",
+        "originalValue": "Х",
         "definitions": [
           "Угроза королю в шахматах"
         ]
@@ -104,8 +104,8 @@
       {
         "id": "31",
         "active": true,
-        "visible": false,
-        "value": "А",
+        "value": "",
+        "originalValue": "А",
         "definitions": [
           "Родитель женского пола"
         ]

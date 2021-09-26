@@ -6,8 +6,8 @@
   {
     "id": "456",
     "active": true,
-    "visible": true,
-    "value": "А",
+    "value": "B",
+    "originalValue": "А",
     "definitions": [
       "Родитель мужского пола", "Угроза королю в шахматах"
     ]
