@@ -1,6 +1,7 @@
 {
   "id": "12345",
   "name": "sample crossword",
+  "hints": 10,
   "cells": [
     [
       {

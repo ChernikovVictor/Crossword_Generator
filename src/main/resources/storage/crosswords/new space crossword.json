@@ -1,6 +1,7 @@
 {
   "id" : "070894f2-9e72-49c7-a76b-08b9a952698f",
   "name" : "new space crossword",
+  "hints" : 9,
   "cells" : [ [ {
     "id" : "00",
     "active" : false,

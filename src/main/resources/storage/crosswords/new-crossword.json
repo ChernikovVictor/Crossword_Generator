@@ -1,6 +1,7 @@
 {
   "id" : "3fd176fb-d6d0-4cb8-a088-188fe0775488",
   "name" : "new-crossword",
+  "hints": 10,
   "cells" : [ [ {
     "id" : "00",
     "active" : false,

@@ -36,6 +36,9 @@ public class CrosswordController {
     public ResponseEntity saveCrossword(@RequestParam String name,
                                         @RequestParam(required = false) String id,
                                         @RequestBody Crossword crossword) {
+
+        /* TODO: добавить здесь проверку целостности кроссворда */
+
         crosswordService.save(crossword, name, id);
         return ResponseEntity.ok().build();
     }
