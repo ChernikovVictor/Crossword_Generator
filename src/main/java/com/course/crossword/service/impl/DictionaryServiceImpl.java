@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,14 +90,19 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     private List<Word> applyFilter(List<Word> words, String filter) {
-        if (words == null) {
+        if (words == null || words.isEmpty()) {
             return Collections.emptyList();
         }
-        if (filter == null) {
+        if (filter == null || filter.isEmpty()) {
             return words;
         }
 
-        // TODO: add filtering
+        final String regex = filter.replaceAll("1", ".")
+                .replaceAll("\\*", ".+")
+                .toLowerCase(Locale.ROOT);
+        words = words.stream().filter(word -> word.getValue().toLowerCase(Locale.ROOT).matches(regex))
+                .collect(Collectors.toList());
+
         return words;
     }
 
