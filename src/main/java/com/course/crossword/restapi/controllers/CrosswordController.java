@@ -1,9 +1,11 @@
 package com.course.crossword.restapi.controllers;
 
 import com.course.crossword.dto.CrosswordNameResponse;
+import com.course.crossword.exceptions.ValidationException;
 import com.course.crossword.model.crossword.Crossword;
 import com.course.crossword.service.CrosswordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,10 +38,11 @@ public class CrosswordController {
     public ResponseEntity saveCrossword(@RequestParam String name,
                                         @RequestParam(required = false) String id,
                                         @RequestBody Crossword crossword) {
-
-        /* TODO: добавить здесь проверку целостности кроссворда */
-
-        crosswordService.save(crossword, name, id);
+        try {
+            crosswordService.save(crossword, name, id);
+        } catch (ValidationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
         return ResponseEntity.ok().build();
     }
 }

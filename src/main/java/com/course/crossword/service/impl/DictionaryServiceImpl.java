@@ -3,6 +3,7 @@ package com.course.crossword.service.impl;
 import com.course.crossword.dao.DictionaryDao;
 import com.course.crossword.dto.DictionaryDTO;
 import com.course.crossword.exceptions.ValidationException;
+import com.course.crossword.model.Constants;
 import com.course.crossword.model.dictionary.Dictionary;
 import com.course.crossword.model.dictionary.Word;
 import com.course.crossword.service.DictionaryService;
@@ -41,7 +42,7 @@ public class DictionaryServiceImpl implements DictionaryService {
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
 
         String validationResult = CustomValidator.isValidWord(word, dictionary);
-        if (!validationResult.equals("success")) {
+        if (!validationResult.equals(Constants.SUCCESS)) {
             throw new ValidationException(validationResult);
         }
 

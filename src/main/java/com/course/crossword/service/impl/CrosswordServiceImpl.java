@@ -2,8 +2,11 @@ package com.course.crossword.service.impl;
 
 import com.course.crossword.dao.CrosswordDao;
 import com.course.crossword.dto.CrosswordNameResponse;
+import com.course.crossword.exceptions.ValidationException;
+import com.course.crossword.model.Constants;
 import com.course.crossword.model.crossword.Crossword;
 import com.course.crossword.service.CrosswordService;
+import com.course.crossword.util.CustomValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +42,15 @@ public class CrosswordServiceImpl implements CrosswordService {
     }
 
     @Override
-    public void save(Crossword crossword, String crosswordName, String id) {
+    public void save(Crossword crossword, String crosswordName, String id) throws ValidationException {
         crossword.setId((id == null) ? UUID.randomUUID().toString() : id);
         crossword.setName(crosswordName);
+
+        String validationResult = CustomValidator.isValidCrossword(crossword);
+        if (!validationResult.equals(Constants.SUCCESS)) {
+            throw new ValidationException(validationResult);
+        }
+
         try {
             crosswordDao.save(crossword);
         } catch (IOException e) {
