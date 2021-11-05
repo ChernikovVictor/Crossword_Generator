@@ -11,6 +11,7 @@ public class Crossword implements Serializable {
 
     private String id;
     private String name;
+    private String dictionaryName;
     private int hints;
     private Cell[][] cells;
 

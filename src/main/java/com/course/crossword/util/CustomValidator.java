@@ -14,6 +14,10 @@ public class CustomValidator {
 
     public static String isValidWord(Word word, Dictionary dictionary) {
 
+        if (word.getValue().length() < 3 || word.getValue().length() > 15) {
+            return "Понятие должно состоять минимум из трех и максимум из пятнадцати букв";
+        }
+
         String russianLanguageRegex = "[а-яА-Я]+";
         if (!word.getValue().matches(russianLanguageRegex)) {
             return "В понятии присутствуют символы, отличные от букв русского языка";

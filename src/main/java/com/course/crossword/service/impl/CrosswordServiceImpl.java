@@ -2,16 +2,18 @@ package com.course.crossword.service.impl;
 
 import com.course.crossword.dao.CrosswordDao;
 import com.course.crossword.dto.CrosswordNameResponse;
+import com.course.crossword.dto.CrosswordParametersDTO;
 import com.course.crossword.exceptions.ValidationException;
 import com.course.crossword.model.Constants;
+import com.course.crossword.model.crossword.Cell;
 import com.course.crossword.model.crossword.Crossword;
 import com.course.crossword.service.CrosswordService;
+import com.course.crossword.service.DictionaryService;
 import com.course.crossword.util.CustomValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -22,10 +24,12 @@ import java.util.stream.Collectors;
 public class CrosswordServiceImpl implements CrosswordService {
 
     private CrosswordDao crosswordDao;
+    private DictionaryService dictionaryService;
 
     @Autowired
-    public CrosswordServiceImpl(CrosswordDao crosswordDao) {
+    public CrosswordServiceImpl(CrosswordDao crosswordDao, DictionaryService dictionaryService) {
         this.crosswordDao = crosswordDao;
+        this.dictionaryService = dictionaryService;
     }
 
     @Override
@@ -57,5 +61,52 @@ public class CrosswordServiceImpl implements CrosswordService {
             log.error(e.getMessage(), e);
             throw new RuntimeException("Не удалось сохранить файл: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void save(Crossword crossword) throws ValidationException {
+        this.save(crossword, crossword.getName(), crossword.getId());
+    }
+
+    @Override
+    public String createCrossword(CrosswordParametersDTO crossParamsDTO) {
+        Crossword crossword;
+        if (crossParamsDTO.isAuto()) {
+            crossword = generateCrossword(crossParamsDTO);
+        } else {
+            crossword = createEmptyCrossword(crossParamsDTO);
+        }
+        crossword.setName(crossParamsDTO.getName());
+        crossword.setDictionaryName(crossParamsDTO.getDictionary());
+        crossword.setHints(Constants.HINT_COUNT);
+        crossword.setId(UUID.randomUUID().toString());
+        try {
+            this.save(crossword);
+            return crossword.getId();
+        } catch (ValidationException e) {
+            log.error(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private Crossword createEmptyCrossword(CrosswordParametersDTO crossParamsDTO) {
+        int height = crossParamsDTO.getHeight();
+        int width = crossParamsDTO.getWidth();
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell();
+                cells[i][j].setId(String.format("%d,%d", i, j));
+                cells[i][j].setActive(false);
+            }
+        }
+        Crossword crossword = new Crossword();
+        crossword.setCells(cells);
+        return crossword;
+    }
+
+    private Crossword generateCrossword(CrosswordParametersDTO crossParamsDTO) {
+        /* TODO: реализовать генерацию кроссворда */
+        return createEmptyCrossword(crossParamsDTO);
     }
 }

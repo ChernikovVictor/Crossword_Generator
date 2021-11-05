@@ -1,23 +1,26 @@
 package com.course.crossword.service.impl;
 
 import com.course.crossword.dao.DictionaryDao;
+import com.course.crossword.dto.CrosswordParametersDTO;
 import com.course.crossword.dto.DictionaryDTO;
+import com.course.crossword.exceptions.ImportFailedException;
 import com.course.crossword.exceptions.ValidationException;
 import com.course.crossword.model.Constants;
 import com.course.crossword.model.dictionary.Dictionary;
 import com.course.crossword.model.dictionary.Word;
 import com.course.crossword.service.DictionaryService;
 import com.course.crossword.util.CustomValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
 
@@ -133,4 +136,55 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         return words;
     }
+
+    @Override
+    public void createDictionary(String name) throws IOException {
+        Dictionary dictionary = new Dictionary(name, Collections.emptyList());
+        dictionaryDao.save(dictionary);
+    }
+
+    @Override
+    public void importDictionary(MultipartFile file) throws ImportFailedException, IOException {
+        String filename = file.getOriginalFilename();
+        int indexOfLastDot = filename.lastIndexOf(".");
+        String extension = filename.substring(indexOfLastDot);
+        if (!extension.equals(Constants.DICTIONARY_EXTENSION)) {
+            throw new ImportFailedException("Недопустимое расширение у файла: " + filename);
+        }
+        importDictionary(filename.substring(0, indexOfLastDot), file.getInputStream());
+    }
+
+    @Override
+    public void importDictionary(String name, InputStream inputStream) throws ImportFailedException, IOException {
+        List<String> dictionaryNames = this.getAllDictionaryNames();
+        for (String dictionaryName : dictionaryNames) {
+            if (dictionaryName.equals(name)) {
+                throw new ImportFailedException("Уже существует словарь с таким именем: " + name);
+            }
+        }
+
+        Dictionary dictionary = new Dictionary(name, new ArrayList<>());
+        Scanner scanner = new Scanner(inputStream);
+        log.info("Если в словаре есть некорректные строчки, они будут представлены ниже:");
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            int indexOfFirstSpace = line.indexOf(" ");
+            if (indexOfFirstSpace < 1) {
+                log.info("{} (Отсутствует определение)", line);
+                continue;
+            }
+            String value = line.substring(0, indexOfFirstSpace).trim();
+            String definition = line.substring(indexOfFirstSpace + 1).trim();
+            Word word = new Word(value, definition);
+            String validationResult = CustomValidator.isValidWord(word, dictionary);
+            if (!validationResult.equals(Constants.SUCCESS)) {
+                log.info("{} ({})", line, validationResult);
+                continue;
+            }
+            dictionary.addWord(word);
+        }
+
+        dictionaryDao.save(dictionary);
+    }
+
 }

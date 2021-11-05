@@ -1,25 +1,29 @@
 {
-  "name" : "dict1",
-  "words" : [ {
-    "value" : "Варшава",
-    "definition" : "1"
-  }, {
-    "value" : "Мама",
-    "definition" : "2"
-  }, {
-    "value" : "Папа",
-    "definition" : "1 1 1"
-  }, {
-    "value" : "Ад",
-    "definition" : "1 1 1"
-  }, {
-    "value" : "Флюрография",
-    "definition" : "1 1 1"
-  }, {
-    "value" : "Варенье",
-    "definition" : "1 1 1"
-  }, {
-    "value" : "Фольга",
-    "definition" : "1 1 1"
-  } ]
+  "name": "dict1",
+  "words": [
+    {
+      "value": "Варшава",
+      "definition": "1"
+    },
+    {
+      "value": "Мама",
+      "definition": "2"
+    },
+    {
+      "value": "Папа",
+      "definition": "1 1 1"
+    },
+    {
+      "value": "Флюрография",
+      "definition": "1 1 1"
+    },
+    {
+      "value": "Варенье",
+      "definition": "1 1 1"
+    },
+    {
+      "value": "Фольга",
+      "definition": "1 1 1"
+    }
+  ]
 }

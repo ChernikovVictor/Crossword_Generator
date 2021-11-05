@@ -1,6 +1,7 @@
 package com.course.crossword.service;
 
 import com.course.crossword.dto.CrosswordNameResponse;
+import com.course.crossword.dto.CrosswordParametersDTO;
 import com.course.crossword.exceptions.ValidationException;
 import com.course.crossword.model.crossword.Crossword;
 
@@ -13,5 +14,8 @@ public interface CrosswordService {
     Crossword getById(String id);
 
     void save(Crossword crossword, String crosswordName, String id) throws ValidationException;
+    void save(Crossword crossword) throws ValidationException;
+
+    String createCrossword(CrosswordParametersDTO crosswordParametersDTO);
 
 }

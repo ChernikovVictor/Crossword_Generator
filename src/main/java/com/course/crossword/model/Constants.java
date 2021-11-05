@@ -9,5 +9,7 @@ public class Constants {
     public static final String ERROR = "ERROR";
     public static final String ADMIN_ROLE = "admin";
     public static final String USER_ROLE = "user";
+    public static final String DICTIONARY_EXTENSION = ".dict";
+    public static final int HINT_COUNT = 10;
 
 }
