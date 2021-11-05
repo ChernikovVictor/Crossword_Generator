@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface CrosswordService {
 
-    List<CrosswordNameResponse> getCrosswordNamesList();
+    List<CrosswordNameResponse> getCrosswordNamesList(String login);
 
-    Crossword getById(String id);
+    Crossword getById(String id, String login);
 
-    void save(Crossword crossword, String crosswordName, String id) throws ValidationException;
-    void save(Crossword crossword) throws ValidationException;
+    void save(Crossword crossword, String crosswordName, String login, String id) throws ValidationException;
+    void save(Crossword crossword, String login) throws ValidationException;
 
     String createCrossword(CrosswordParametersDTO crosswordParametersDTO);
 

@@ -25,21 +25,22 @@ public class CrosswordController {
     }
 
     @GetMapping(value = "/list")
-    public List<CrosswordNameResponse> list() {
-        return crosswordService.getCrosswordNamesList();
+    public List<CrosswordNameResponse> list(@RequestParam String login) {
+        return crosswordService.getCrosswordNamesList(login);
     }
 
     @GetMapping(value = "/crossword")
-    public Crossword getCrosswordById(@RequestParam String id) {
-        return crosswordService.getById(id);
+    public Crossword getCrosswordById(@RequestParam String id, @RequestParam String login) {
+        return crosswordService.getById(id, login);
     }
 
     @PostMapping(value = "/crossword")
     public ResponseEntity saveCrossword(@RequestParam String name,
+                                        @RequestParam String login,
                                         @RequestParam(required = false) String id,
                                         @RequestBody Crossword crossword) {
         try {
-            crosswordService.save(crossword, name, id);
+            crosswordService.save(crossword, name, login, id);
         } catch (ValidationException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

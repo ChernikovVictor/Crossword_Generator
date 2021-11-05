@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -33,20 +34,24 @@ public class CrosswordServiceImpl implements CrosswordService {
     }
 
     @Override
-    public List<CrosswordNameResponse> getCrosswordNamesList() {
-        List<Crossword> crosswords = crosswordDao.getAllCrosswords();
-        return crosswords.stream()
-                .map(c -> new CrosswordNameResponse(c.getId(), c.getName()))
-                .collect(Collectors.toList());
+    public List<CrosswordNameResponse> getCrosswordNamesList(String login) {
+        Stream<CrosswordNameResponse> s1 = crosswordDao.getCrosswordsForUser(Constants.ADMIN_ROLE)
+                .stream().map(c -> new CrosswordNameResponse(c.getId(), c.getName(), true));
+        if (login.equals(Constants.ADMIN_ROLE)) {
+            return s1.collect(Collectors.toList());
+        }
+        Stream<CrosswordNameResponse> s2 = crosswordDao.getCrosswordsForUser(login)
+                .stream().map(c -> new CrosswordNameResponse(c.getId(), c.getName(), false));
+        return Stream.concat(s1, s2).collect(Collectors.toList());
     }
 
     @Override
-    public Crossword getById(String id) {
-        return crosswordDao.getById(id).orElseThrow(() -> new RuntimeException("Кроссворд не найден"));
+    public Crossword getById(String id, String login) {
+        return crosswordDao.getById(id, login).orElseThrow(() -> new RuntimeException("Кроссворд не найден"));
     }
 
     @Override
-    public void save(Crossword crossword, String crosswordName, String id) throws ValidationException {
+    public void save(Crossword crossword, String crosswordName, String login, String id) throws ValidationException {
         crossword.setId((id == null) ? UUID.randomUUID().toString() : id);
         crossword.setName(crosswordName);
 
@@ -56,7 +61,7 @@ public class CrosswordServiceImpl implements CrosswordService {
         }
 
         try {
-            crosswordDao.save(crossword);
+            crosswordDao.save(crossword, login);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException("Не удалось сохранить файл: " + e.getMessage());
@@ -64,8 +69,8 @@ public class CrosswordServiceImpl implements CrosswordService {
     }
 
     @Override
-    public void save(Crossword crossword) throws ValidationException {
-        this.save(crossword, crossword.getName(), crossword.getId());
+    public void save(Crossword crossword, String login) throws ValidationException {
+        this.save(crossword, crossword.getName(), login, crossword.getId());
     }
 
     @Override
@@ -81,7 +86,7 @@ public class CrosswordServiceImpl implements CrosswordService {
         crossword.setHints(Constants.HINT_COUNT);
         crossword.setId(UUID.randomUUID().toString());
         try {
-            this.save(crossword);
+            this.save(crossword, Constants.ADMIN_ROLE);
             return crossword.getId();
         } catch (ValidationException e) {
             log.error(e.getMessage(), e);

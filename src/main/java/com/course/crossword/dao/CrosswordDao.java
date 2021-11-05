@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CrosswordDao {
 
-    List<Crossword> getAllCrosswords();
+    List<Crossword> getCrosswordsForUser(String login);
 
-    Optional<Crossword> getById(String id);
+    Optional<Crossword> getById(String id, String login);
 
-    void save(Crossword crossword) throws IOException;
+    void save(Crossword crossword, String login) throws IOException;
 }

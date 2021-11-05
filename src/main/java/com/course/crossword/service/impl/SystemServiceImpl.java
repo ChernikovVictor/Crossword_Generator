@@ -34,7 +34,7 @@ public class SystemServiceImpl implements SystemService {
             return new CredentialsResponse(ERROR, "Некорректные данные", Strings.EMPTY);
         }
         if (isCredentialAlreadyExists(credentials)) {
-            return new CredentialsResponse(ERROR, "Пользователь с такими данными уже существует", Strings.EMPTY);
+            return new CredentialsResponse(ERROR, "Пользователь с таким логином уже существует", Strings.EMPTY);
         }
         try {
             systemDao.save(credentials);
@@ -58,7 +58,6 @@ public class SystemServiceImpl implements SystemService {
 
     private boolean isCredentialAlreadyExists(Credentials cred) {
         List<Credentials> credentials = systemDao.getAllUsers();
-        return credentials.stream()
-                .anyMatch(c -> c.getLogin().equals(cred.getLogin()) && c.getPassword().equals(cred.getPassword()));
+        return credentials.stream().anyMatch(c -> c.getLogin().equals(cred.getLogin()));
     }
 }

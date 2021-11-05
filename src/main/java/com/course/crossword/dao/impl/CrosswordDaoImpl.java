@@ -24,12 +24,25 @@ public class CrosswordDaoImpl implements CrosswordDao {
     private final JsonLoader<Crossword> jsonLoader = new JsonLoader<>(Crossword.class);
 
     @Override
-    public List<Crossword> getAllCrosswords() {
+    public Optional<Crossword> getById(String id, String login) {
+        List<Crossword> crosswords = getCrosswordsForUser(login);
+        return crosswords.stream().filter(c -> c.getId().equals(id)).findFirst();
+    }
+
+    @Override
+    public void save(Crossword crossword, String login) throws IOException {
+        String filepath = CROSSWORDS_URL + PATH_SEPARATOR + login + PATH_SEPARATOR + crossword.getName() + JSON_EXTENSION;
+        jsonLoader.saveAsJson(crossword, filepath);
+    }
+
+    @Override
+    public List<Crossword> getCrosswordsForUser(String login) {
         try {
-            List<String> filenames = FileUtils.getAllFileNamesByPath(CROSSWORDS_URL);
+            String path = CROSSWORDS_URL + PATH_SEPARATOR + login;
+            List<String> filenames = FileUtils.getAllFileNamesByPath(path);
             List<Crossword> result = new ArrayList<>();
             for (String filename : filenames) {
-                Crossword crossword = jsonLoader.loadFromJson(CROSSWORDS_URL + PATH_SEPARATOR + filename);
+                Crossword crossword = jsonLoader.loadFromJson(path + PATH_SEPARATOR + filename);
                 result.add(crossword);
             }
             return result;
@@ -39,15 +52,4 @@ public class CrosswordDaoImpl implements CrosswordDao {
         }
     }
 
-    @Override
-    public Optional<Crossword> getById(String id) {
-        List<Crossword> crosswords = getAllCrosswords();
-        return crosswords.stream().filter(c -> c.getId().equals(id)).findFirst();
-    }
-
-    @Override
-    public void save(Crossword crossword) throws IOException {
-        String filepath = CROSSWORDS_URL + PATH_SEPARATOR + crossword.getName() + JSON_EXTENSION;
-        jsonLoader.saveAsJson(crossword, filepath);
-    }
 }
