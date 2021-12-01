@@ -11,7 +11,7 @@
 <h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
 <div class="formLogIn">
     <div class="borderForm">
-        <form action="" class="logIn">
+        <form id="formLogIn" class="logIn">
             <p class="directionLogIn">Войдите в систему</p>
             <p class="blockInput">
                 <label>Логин</label>
@@ -21,10 +21,27 @@
                 <label>Пароль</label>
                 <input id="password" type="password" class="inputPass">
             </p>
-            <input type="submit" class="buttonLogin" onclick="LogIn(); return false;" value="ВОЙТИ"/>
-            <p class="registration">
-                <a href="">Зарегистрироваться</a>
+            <input type="submit" class="buttonLogin" onclick="logIn(); return false;" value="ВОЙТИ"/>
+            <a class="registration" onclick="registrationInSystem(); return false;" href="">
+                Зарегистрироваться
+            </a>
+        </form>
+
+        <form  id="formRegistration" class="logIn">
+            <p class="directionLogIn">Зарегистрируйтесь в системе</p>
+            <p class="blockInput">
+                <label>Логин</label>
+                <input id="loginRegistration" type="text" class="inputLog">
             </p>
+            <p class="blockInput">
+                <label>Пароль</label>
+                <input id="passwordFirstRegistration" type="password" class="inputPass">
+            </p>
+            <p class="blockInput">
+                <span>Повторите пароль</span>
+                <input id="passwordSecondRegistration" type="password" class="inputPass">
+            </p>
+            <input type="submit" class="buttonLogin" onclick="registration(); return false;" value="ЗАРЕГИСТРИРОВАТЬСЯ"/>
         </form>
     </div>
 </div>
