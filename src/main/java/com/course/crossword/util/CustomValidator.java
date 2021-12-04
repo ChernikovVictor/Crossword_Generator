@@ -7,6 +7,7 @@ import com.course.crossword.model.dictionary.Dictionary;
 import com.course.crossword.model.dictionary.Word;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class CustomValidator {
         }
 
         Optional<Word> duplicate = dictionary.getWords().stream()
-                .filter(w -> w.getValue().equals(word.getValue()))
+                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(word.getValue().toLowerCase(Locale.ROOT)))
                 .findAny();
         if (duplicate.isPresent()) {
             return String.format("В словаре уже есть такое понятие: %s - %s",

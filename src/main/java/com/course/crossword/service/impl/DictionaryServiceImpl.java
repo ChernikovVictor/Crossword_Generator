@@ -57,15 +57,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public DictionaryDTO getWords(String dictionaryName, int page, String filter, String sort, String sortDirection ) {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
-
         List<Word> filteredWords = applyFilter(dictionary.getWords(), filter);
         List<Word> filteredAndSortedWords = applySort(filteredWords, sort, sortDirection);
-
-        List<Word> resultWords = filteredAndSortedWords.stream()
-                .skip((page - 1) * WORDS_PER_PAGE)
-                .limit(WORDS_PER_PAGE)
-                .collect(Collectors.toList());
-
+        List<Word> resultWords = applyPagination(filteredAndSortedWords, page);
         return new DictionaryDTO(resultWords, filteredWords.size());
     }
 
@@ -74,7 +68,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
         Word word = dictionary.getWords().stream()
-                .filter(w -> w.getValue().equals(wordValue))
+                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(wordValue.toLowerCase(Locale.ROOT)))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("В словаре нет такого понятия"));
         dictionary.getWords().remove(word);
@@ -82,14 +76,19 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public void updateWord(Word word, String dictionaryName) throws IOException {
+    public void updateWord(String oldValue, Word word, String dictionaryName) throws IOException {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
         Word wordToUpdate = dictionary.getWords().stream()
-                .filter(w -> w.getValue().equals(word.getValue()))
+                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(oldValue.toLowerCase(Locale.ROOT)))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("В словаре нет такого понятия"));
-        wordToUpdate.setDefinition(word.getDefinition());
+        dictionary.removeWord(wordToUpdate);
+        String validationResult = CustomValidator.isValidWord(word, dictionary);
+        if (!validationResult.equals(Constants.SUCCESS)) {
+            throw new RuntimeException(validationResult);
+        }
+        dictionary.addWord(word);
         dictionaryDao.save(dictionary);
     }
 
@@ -135,6 +134,16 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
 
         return words;
+    }
+
+    private List<Word> applyPagination(List<Word> words, int page) {
+        if (page == 0) {
+            return words;
+        }
+        return words.stream()
+                .skip((page - 1) * WORDS_PER_PAGE)
+                .limit(WORDS_PER_PAGE)
+                .collect(Collectors.toList());
     }
 
     @Override

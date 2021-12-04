@@ -19,7 +19,7 @@ public interface DictionaryService {
 
     void removeWord(String wordValue, String dictionaryName) throws IOException;
 
-    void updateWord(Word word, String dictionaryName) throws IOException;
+    void updateWord(String oldValue, Word word, String dictionaryName) throws IOException;
 
     DictionaryDTO getWords(String dictionaryName, int page, String filter, String sort, String sortDirection);
 

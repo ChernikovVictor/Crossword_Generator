@@ -33,7 +33,7 @@ public class DictionaryController {
 
     @GetMapping(value = "/dictionary")
     public DictionaryDTO getWords(@RequestParam(value = "name") String dictionaryName,
-                                  @RequestParam int page,
+                                  @RequestParam(required = false, defaultValue = "0") int page,
                                   @RequestParam(required = false) String filter,
                                   @RequestParam(required = false) String sort,
                                   @RequestParam(required = false) String sortDirection) {
@@ -61,8 +61,9 @@ public class DictionaryController {
 
     @PutMapping(value = "/dictionary")
     public ResponseEntity<String> updateWord(@RequestParam(value = "name") String dictionaryName,
+                                             @RequestParam String oldValue,
                                              @RequestBody Word word) throws IOException {
-        dictionaryService.updateWord(word, dictionaryName);
+        dictionaryService.updateWord(oldValue, word, dictionaryName);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

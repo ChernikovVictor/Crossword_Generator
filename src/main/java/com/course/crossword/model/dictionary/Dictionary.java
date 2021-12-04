@@ -22,4 +22,9 @@ public class Dictionary {
         words.add(word);
     }
 
+    public void removeWord(Word word) {
+        if (words != null) {
+            words.remove(word);
+        }
+    }
 }
