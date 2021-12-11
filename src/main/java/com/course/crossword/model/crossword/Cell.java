@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,6 +17,6 @@ public class Cell implements Serializable {
     private boolean active;
     private String value;
     private String originalValue;
-    private List<String> definitions;
+    private List<String> definitions = new ArrayList<>();
 
 }
