@@ -66,8 +66,8 @@ public class CrosswordBuilder
         List<Point> points = new ArrayList<>();
         for(int i = 0;i<getCells().length;i++){
             for(int j = 0;j<getCells()[0].length;j++){
-                if(getCells()[i][j].isActive() && word.getValue().contains(getCells()[i][j].getValue())){
-                    points.add(new Point(i,j,word.getValue().indexOf(getCells()[i][j].getValue())));
+                if(getCells()[i][j].isActive() && word.getValue().contains(getCells()[i][j].getOriginalValue())){
+                    points.add(new Point(i,j,word.getValue().indexOf(getCells()[i][j].getOriginalValue())));
                 }
             }
         }
@@ -78,7 +78,7 @@ public class CrosswordBuilder
         for(int i = w;i < w+word.getValue().length();i++){
             getCells()[h][i].setActive(true);
             getCells()[h][i].getDefinitions().add(word.getDefinition());
-            getCells()[h][i].setValue(String.valueOf(word.getValue().charAt(i-w)));
+            getCells()[h][i].setOriginalValue(String.valueOf(word.getValue().charAt(i-w)));
         }
     }
 
@@ -95,7 +95,7 @@ public class CrosswordBuilder
         int rep2 = 0;
         for(int i = w;i < w+word.getValue().length();i++){
             if(getCells()[h][i].isActive()
-                    && !getCells()[h][i].getValue().equals(String.valueOf(word.getValue().charAt(i-w)))){
+                    && !getCells()[h][i].getOriginalValue().equals(String.valueOf(word.getValue().charAt(i-w)))){
                 return false;
             }else if(!getCells()[h][i].isActive()){
                 if(h>0 && getCells()[h-1][i].isActive() ||
@@ -125,7 +125,7 @@ public class CrosswordBuilder
         for(int i = h;i < h+word.getValue().length();i++){
             getCells()[i][w].setActive(true);
             getCells()[i][w].getDefinitions().add(word.getDefinition());
-            getCells()[i][w].setValue(String.valueOf(word.getValue().charAt(i-h)));
+            getCells()[i][w].setOriginalValue(String.valueOf(word.getValue().charAt(i-h)));
         }
     }
 
@@ -141,7 +141,7 @@ public class CrosswordBuilder
         int rep2 = 0;
         for(int i = h;i < h+word.getValue().length();i++){
             if(getCells()[i][w].isActive()
-                    && !getCells()[i][w].getValue().equals(String.valueOf(word.getValue().charAt(i-h)))){
+                    && !getCells()[i][w].getOriginalValue().equals(String.valueOf(word.getValue().charAt(i-h)))){
                 return false;
             }else if(!getCells()[i][w].isActive()){
                 if(w>0 && getCells()[i][w-1].isActive() ||
