@@ -4,11 +4,39 @@
   <meta charset="UTF-8">
   <title>Кроссворд | Администратор</title>
   <link rel="stylesheet" href="css/Style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-<h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
-<div class="formLogIn">
-  Вы прошли аутентификацию!
-</div>
+  <h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
+  <div class="buttonsAdmin">
+    <div class="helloAdmin">
+      Добро пожаловать, администратор!
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu" onclick="createCrossword();">Создать кроссворд</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu" onclick="editCrossword();">Изменить существующий кроссворд</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu">Создать словарь понятий</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu">Изменить словарь понятий</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu">Загрузить словарь понятий</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu" onclick="outAdmin();">О системе</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu" onclick="outAdmin();">О разработчиках</button>
+    </div>
+    <div class="blockButtonMainMenu">
+      <button class="buttonMainMenu" onclick="outAdmin();">Выйти из профиля</button>
+    </div>
+  </div>
+  <script src="js/Script.js"></script>
 </body>
 </html>

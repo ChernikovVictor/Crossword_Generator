@@ -48,3 +48,102 @@ h1 {
 .registration {
     margin-left: 27%;
 }
+
+.helloAdmin {
+    margin-top: 2%;
+}
+
+.buttonsAdmin {
+    text-align: center;
+}
+
+.buttonMainMenu {
+    height: 40px;
+    width: 280px;
+}
+
+.blockButtonMainMenu {
+    margin-top: 1%;
+}
+
+.borderCreateCrossword {
+    border: 2px solid grey;
+    width: 375px;
+    height: 245px;
+    margin-left: 38%;
+}
+
+.marginNameCreateCrossword {
+    margin-right: 19%;
+}
+
+.marginWidthCreateCrossword {
+    margin-right: 22%;
+}
+
+.marginHeightCreateCrossword {
+    margin-right: 24%;
+}
+
+.blockAutoGenerate {
+    margin-right: 22%;
+    margin-left: 6%;
+}
+
+.buttonCreateCrossword {
+    width: 130px;
+    height: 25px;
+    margin-top: 2%;
+}
+
+.main {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mainTable {
+    width: 500px;
+    height: 500px;
+}
+
+.tableCell {
+    height: 40px;
+    background: cadetblue;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    width: 2rem;
+    height: 2rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    user-select: none;
+    text-align: center;
+}
+
+.tableForWord {
+    width: 400px;
+    height: 50px;
+}
+
+.selectDictionary {
+    width: 400px;
+    margin-top: 2%;
+    height: 300px;
+}
+
+.selectWords {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.buttonEditCrossword {
+    height: 40px;
+    width: 373px;
+    margin-left: 4%;
+    margin-top: 3%;
+}

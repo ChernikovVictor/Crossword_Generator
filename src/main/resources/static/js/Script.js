@@ -65,21 +65,12 @@ function registration() {
     pattern = /^[a-zA-Z](.[a-zA-Z0-9_-]*)$/;
     let validLogin = pattern.test(login);
 
-    patternPasss = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])/;
-    let validPass = patternPasss.test(passFirst);
-
     if (!validLogin || login.length < 6) {
         errorMsg = "Логин не соответствует формату\n";
     }
 
     if (passFirst.length < 6) {
         errorMsg += "Длина пароля должна быть не менее 6 символов\n";
-    }
-
-    if (!validPass) {
-        errorMsg += "Пароль не соответствует формату!\n";
-        $("#descPass1").css({"color": "red"});
-        $("#descPass2").css({"color": "red"});
     }
 
     if (passFirst !== passSecond || !passFirst || !passSecond) {
@@ -118,4 +109,16 @@ function registrtionUser(body) {
             console.log("ERROR: ", e);
         }
     });
+}
+
+function outAdmin() {
+    window.location.href = "index.html";
+}
+
+function createCrossword() {
+    window.location.href = "createCrossword.html";
+}
+
+function editCrossword() {
+    window.location.href = "crosswordAdmin.html";
 }

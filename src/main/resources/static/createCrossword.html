@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Кроссворд | Создание кроссворда</title>
+    <link rel="stylesheet" href="css/Style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
+<div class="buttonsAdmin">
+    <div class="helloAdmin">
+        Создание кроссворда
+    </div>
+    <div class="blockButtonMainMenu">
+        <div class="borderCreateCrossword">
+            <p class="blockInput">
+                <label class="marginNameCreateCrossword">Название</label>
+                <input id="nameCrossword" type="text" class="nameCrossword">
+            </p>
+            <p class="blockInput">
+                <label class="marginWidthCreateCrossword">Ширина</label>
+                <input id="widthCrossword" type="number" class="widthCrossword">
+            </p>
+            <p class="blockInput">
+                <label class="marginHeightCreateCrossword">Высота</label>
+                <input id="heightCrossword" type="number" class="heightCrossword">
+            </p>
+            <p class="blockAutoGenerate">
+                <label>Автоматическая генерация</label>
+                <input id="autoGenerateCrossword" type="checkbox" class="autoGenerateCrossword">
+            </p>
+            <p class="blockInput">
+                <label>Выберите словарь понятий</label>
+                <select id="dictionaryList">
+                </select>
+            </p>
+            <input type="submit" class="buttonCreateCrossword" onclick="createCrossword();" value="Создать"/>
+        </div>
+    </div>
+
+</div>
+<script src="js/Script.js"></script>
+<script src="js/CreateCrosswordScript.js"></script>
+</body>
+</html>
