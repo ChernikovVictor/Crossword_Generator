@@ -151,6 +151,7 @@ public class CrosswordServiceImpl implements CrosswordService
         Crossword crossword = createBaseCrossword(height,width);
         CrosswordBuilder crosswordBuilder = new CrosswordBuilder(crossword,dict);
         crossword = crosswordBuilder.buildCrossword();
+        System.out.println(crossword.toString());
         return crossword;
     }
 

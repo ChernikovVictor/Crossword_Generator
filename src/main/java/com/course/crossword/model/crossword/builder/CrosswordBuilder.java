@@ -76,10 +76,6 @@ public class CrosswordBuilder
 
     private void placeWordHorizontal(Word word, int h,int w){
         for(int i = w;i < w+word.getValue().length();i++){
-            if(getCells()[h][i].isActive()
-                    && !getCells()[h][i].getValue().equals(String.valueOf(word.getValue().charAt(i-w)))){
-                throw new RuntimeException("Ячейка "+h+" "+i+" уже используется, нельзя вставить слово");
-            }
             getCells()[h][i].setActive(true);
             getCells()[h][i].getDefinitions().add(word.getDefinition());
             getCells()[h][i].setValue(String.valueOf(word.getValue().charAt(i-w)));
@@ -91,8 +87,8 @@ public class CrosswordBuilder
             return false;
         }
         if(w>0 && getCells()[h][w-1].isActive()
-        || w+word.getValue().length()+1<getCells()[0].length
-                && getCells()[h][w+word.getValue().length()+1].isActive()){
+        || w+word.getValue().length()<getCells()[0].length
+                && getCells()[h][w+word.getValue().length()].isActive()){
             return false;
         }
         int rep1 = 0;
@@ -101,6 +97,11 @@ public class CrosswordBuilder
             if(getCells()[h][i].isActive()
                     && !getCells()[h][i].getValue().equals(String.valueOf(word.getValue().charAt(i-w)))){
                 return false;
+            }else if(!getCells()[h][i].isActive()){
+                if(h>0 && getCells()[h-1][i].isActive() ||
+                        h+1<getCells().length && getCells()[h+1][i].isActive()){
+                    return false;
+                }
             }
             if(h>0 && getCells()[h-1][i].isActive()){
                 rep1++;
@@ -122,10 +123,6 @@ public class CrosswordBuilder
 
     private void placeWordVertical(Word word, int h,int w){
         for(int i = h;i < h+word.getValue().length();i++){
-            if(getCells()[i][w].isActive()
-                    && !getCells()[i][w].getValue().equals(String.valueOf(word.getValue().charAt(i-h)))){
-                throw new RuntimeException("Ячейка "+h+" "+i+" уже используется, нельзя вставить слово");
-            }
             getCells()[i][w].setActive(true);
             getCells()[i][w].getDefinitions().add(word.getDefinition());
             getCells()[i][w].setValue(String.valueOf(word.getValue().charAt(i-h)));
@@ -137,7 +134,7 @@ public class CrosswordBuilder
             return false;
         }
         if(h>0 && getCells()[h-1][w].isActive()
-                || h+word.getValue().length()+1<getCells().length && getCells()[h+word.getValue().length()+1][w].isActive()){
+                || h+word.getValue().length()<getCells().length && getCells()[h+word.getValue().length()][w].isActive()){
             return false;
         }
         int rep1 = 0;
@@ -146,6 +143,11 @@ public class CrosswordBuilder
             if(getCells()[i][w].isActive()
                     && !getCells()[i][w].getValue().equals(String.valueOf(word.getValue().charAt(i-h)))){
                 return false;
+            }else if(!getCells()[i][w].isActive()){
+                if(w>0 && getCells()[i][w-1].isActive() ||
+                        w+1<getCells()[0].length && getCells()[i][w+1].isActive()){
+                    return false;
+                }
             }
 
             if(w>0 && getCells()[i][w-1].isActive()){
