@@ -1,0 +1,104 @@
+h1 {
+    padding: 0;
+    font-family: Tahoma;
+    font-size: 16pt;
+    text-align: center;
+}
+#header {
+    margin: auto;
+    max-width: 1400px;
+}
+#dictionaryNameParagraph {
+    display: inline-block;
+    font-size: 16pt;
+    height: 30px;
+}
+#findByMask {
+    display: inline-block;
+    height: 40px;
+}
+button {
+    height: 30px;
+    width: 180px;
+    display: inline-block;
+    margin: 20px;
+}
+#exitButton {
+    width: 250px;
+}
+#findByMaskButton {
+    margin-left: 5px;
+}
+input {
+    display: inline-block;
+    height: 25px;
+}
+select {
+    display: inline-block;
+    height: 30px;
+    margin: 20px;
+}
+table {
+    margin-left: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+th {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 18px;
+}
+
+td.definition {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 18px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+td.value {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 18px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.deleteButton, .editButton {
+    margin: 0;
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.deleteButton:hover, .editButton:hover {
+    background-color: RoyalBlue;
+}
+
+.popup {
+    display: none;
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.popup .popup-content{
+    margin: 40px auto 0 auto;
+    width: 400px;
+    height: 200px;
+    padding: 10px;
+    background-color: #c5c5c5;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #000;
+}

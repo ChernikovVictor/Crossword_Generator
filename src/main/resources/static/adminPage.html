@@ -5,6 +5,27 @@
   <title>Кроссворд | Администратор</title>
   <link rel="stylesheet" href="css/Style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .popup {
+      display: none;
+      width: 100%;
+      min-height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .popup .popup-content{
+      margin: 40px auto 0 auto;
+      width: 400px;
+      height: 100px;
+      padding: 10px;
+      background-color: #c5c5c5;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #000;
+    }
+  </style>
 </head>
 <body>
   <h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
@@ -22,7 +43,7 @@
       <button class="buttonMainMenu">Создать словарь понятий</button>
     </div>
     <div class="blockButtonMainMenu">
-      <button class="buttonMainMenu">Изменить словарь понятий</button>
+      <button class="buttonMainMenu" onclick="chooseDictionary();">Изменить словарь понятий</button>
     </div>
     <div class="blockButtonMainMenu">
       <button class="buttonMainMenu">Загрузить словарь понятий</button>
@@ -35,6 +56,13 @@
     </div>
     <div class="blockButtonMainMenu">
       <button class="buttonMainMenu" onclick="outAdmin();">Выйти из профиля</button>
+    </div>
+  </div>
+  <div class="popup" id="chooseDictionaryForm">
+    <div class="popup-content">
+      <p style="display: inline-block">Выберите словарь:</p>
+      <select id="dictionaries" onchange="editDictionary(this)" style="width: 200px"></select>
+      <a href="#" id="hidePopUp" style="display: inline-block; margin-top: 50px">Назад</a>
     </div>
   </div>
   <script src="js/Script.js"></script>

@@ -3,6 +3,10 @@ start();
 function start() {
     $("#formLogIn").css({"display": "block"});
     $("#formRegistration").css({"display": "none"});
+    document.getElementById("hidePopUp").onclick = function () {
+        document.getElementById("chooseDictionaryForm").style.display = "none";
+        $('#dictionaries').find('option').remove();
+    }
 }
 
 function logIn() {
@@ -121,4 +125,29 @@ function createCrossword() {
 
 function editCrossword() {
     window.location.href = "crosswordAdmin.html";
+}
+
+function editDictionary(selection) {
+    var dictionaryName = selection[selection.selectedIndex].value;
+    localStorage.setItem("dictionaryName", dictionaryName);
+    window.location.href = "dictionary.html";
+}
+
+function chooseDictionary() {
+    $.ajax({
+        type : "GET",
+        url : "http://localhost:8080/dictionaries/list",
+        dataType : 'json',
+        success : function(response) {
+            $('#dictionaries').append('<option disabled selected value></option>')
+            for (let i = 0; i < response.length; i++) {
+                $('#dictionaries').append('<option>' + response[i] + '</option>')
+            }
+        },
+        error : function(e) {
+            alert(e.responseText)
+            console.log("ERROR: ", e);
+        }
+    });
+    document.getElementById("chooseDictionaryForm").style.display = "block";
 }

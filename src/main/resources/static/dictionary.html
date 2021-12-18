@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа со словарями понятий</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/dictionaryStyles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
+<div id="root">
+    <div id="header">
+        <p id="dictionaryNameParagraph">Словарь: </p>
+        <button id="addWordButton">Добавить понятие</button>
+        <div id="findByMask">
+            <input id="findByMaskInput" placeholder="Поиск по маске" />
+            <button id="findByMaskButton" onclick="getWords();" style="width: 70px">Поиск</button>
+        </div>
+        Сортировать по:
+        <select id="sortMode" onchange="getWords();">
+            <option>Длине, возр.</option>
+            <option>Длине, убыв.</option>
+            <option>Алфавиту, возр.</option>
+            <option>Алфавиту, убыв.</option>
+        </select>
+        <button id="exitButton" onclick="exit();">Сохранить изменения и выйти</button>
+    </div>
+    <div class="popup" id="addWordForm">
+        <div class="popup-content">
+            <p>Введите понятие и определение:</p>
+            <input type="text" id="addWordInputValue" placeholder="Понятие" style="display: block; width: 350px"/>
+            <br/>
+            <input type="text" id="addWordInputDefinition" placeholder="Определение" style="display: block; width: 350px"/>
+            <button id="addWordFormSubmit">Сохранить</button>
+            <a href="#" id="hideAddPopUp" style="display: inline-block; margin-top: 50px">Назад</a>
+        </div>
+    </div>
+    <div class="popup" id="editWordForm">
+        <div class="popup-content">
+            <p>Введите понятие и определение:</p>
+            <input type="text" id="editWordInputValue" placeholder="Понятие" style="display: block; width: 350px"/>
+            <input type="text" id="oldEditWordInputValue" placeholder="Определение" style="display: none; width: 350px"/>
+            <br/>
+            <input type="text" id="editWordInputDefinition" placeholder="Определение" style="display: block; width: 350px"/>
+            <button id="editWordFormSubmit">Сохранить</button>
+            <a href="#" id="hideEditPopUp" style="display: inline-block; margin-top: 50px">Назад</a>
+        </div>
+    </div>
+    <div id="content">
+        <table id="wordsTable" class="minimalistBlack"></table>
+    </div>
+</div>
+
+<script src="js/dictionaryScripts.js"></script>
+</body>
+</html>
