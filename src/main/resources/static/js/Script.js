@@ -3,10 +3,6 @@ start();
 function start() {
     $("#formLogIn").css({"display": "block"});
     $("#formRegistration").css({"display": "none"});
-    document.getElementById("hidePopUp").onclick = function () {
-        document.getElementById("chooseDictionaryForm").style.display = "none";
-        $('#dictionaries').find('option').remove();
-    }
 }
 
 function logIn() {
@@ -150,4 +146,53 @@ function chooseDictionary() {
         }
     });
     document.getElementById("chooseDictionaryForm").style.display = "block";
+}
+
+function closePopUpById(id) {
+    document.getElementById(id).style.display = "none";
+    $('#dictionaries').find('option').remove();
+    document.getElementById("createDictionaryInput").value = "";
+}
+
+function inputDictionaryName() {
+    document.getElementById("createDictionaryForm").style.display = "block";
+}
+
+function createDictionary() {
+    var dictionaryName = $("#createDictionaryInput").val();
+    $.ajax({
+        type : "GET",
+        url : "http://localhost:8080/dictionaries/list",
+        dataType : 'json',
+        success : function(response) {
+            var isDuplicate = false;
+            for (let i = 0; i < response.length; i++) {
+                if (response[i] === dictionaryName) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (isDuplicate) {
+                alert("Словарь с таким названием уже существует");
+            } else {
+                $.ajax({
+                    type: "PUT",
+                    contentType: "application/json",
+                    url: 'http://localhost:8080/admin/dictionary?name=' + dictionaryName,
+                    success: function (result) {
+                        closePopUpById('createDictionaryForm');
+                        alert("Словарь создан успешно");
+                    },
+                    error: function (e) {
+                        alert("Произошла ошибка на сервере: " + e.responseText);
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
+        },
+        error : function(e) {
+            alert(e.responseText)
+            console.log("ERROR: ", e);
+        }
+    });
 }
