@@ -152,10 +152,7 @@ function closePopUpById(id) {
     document.getElementById(id).style.display = "none";
     $('#dictionaries').find('option').remove();
     document.getElementById("createDictionaryInput").value = "";
-}
-
-function inputDictionaryName() {
-    document.getElementById("createDictionaryForm").style.display = "block";
+    document.getElementById("file").value = "";
 }
 
 function createDictionary() {
@@ -195,4 +192,19 @@ function createDictionary() {
             console.log("ERROR: ", e);
         }
     });
+}
+
+function importDictionary() {
+    var formElement = document.querySelector("#importForm");
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            closePopUpById("importDictionaryForm");
+            alert("Словарь успешно импортирован");
+        } else if (this.readyState === 4 && this.status !== 200) {
+            alert(this.responseText);
+        }
+    }
+    request.open("POST", "http://localhost:8080/admin/dictionary");
+    request.send(new FormData(formElement));
 }
