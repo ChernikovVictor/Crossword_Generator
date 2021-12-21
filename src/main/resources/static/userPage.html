@@ -5,27 +5,6 @@
     <title>Кроссворд | Игрок</title>
     <link rel="stylesheet" href="css/Style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        .popup {
-            display: none;
-            width: 100%;
-            min-height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-        .popup .popup-content{
-            margin: 40px auto 0 auto;
-            width: 400px;
-            height: 100px;
-            padding: 10px;
-            background-color: #c5c5c5;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #000;
-        }
-    </style>
 </head>
 <body>
 <h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
@@ -34,7 +13,7 @@
         Добро пожаловать, игрок!
     </div>
     <div class="blockButtonMainMenu">
-        <button class="buttonMainMenu" onclick="">Разгадать кроссворд</button>
+        <button class="buttonMainMenu" onclick="solvingCrossword();">Разгадать кроссворд</button>
     </div>
     <div class="blockButtonMainMenu">
         <button class="buttonMainMenu" onclick="aboutSystem();">О системе</button>
@@ -46,29 +25,12 @@
         <button class="buttonMainMenu" onclick="outAdmin();">Выйти из профиля</button>
     </div>
 </div>
-<div class="popup" id="chooseDictionaryForm">
-    <div class="popup-content">
-        <p style="display: inline-block">Выберите словарь:</p>
-        <select id="dictionaries" onchange="editDictionary(this)" style="width: 200px"></select>
-        <a href="#" onclick="closePopUpById('chooseDictionaryForm');" style="display: inline-block; margin-top: 50px">Назад</a>
-    </div>
-</div>
-<div class="popup" id="createDictionaryForm">
-    <div class="popup-content">
-        <p style="display: inline-block">Введите название словаря:</p>
-        <input id="createDictionaryInput" style="width: 200px"/>
-        <button id="createDictionaryButton" onclick="createDictionary();">Создать</button>
-        <a href="#" onclick="closePopUpById('createDictionaryForm');" style="display: inline-block; margin: 10px">Назад</a>
-    </div>
-</div>
-<div class="popup" id="importDictionaryForm">
-    <div class="popup-content">
-        <p>Загрузите словарь:</p>
-        <form id="importForm" enctype="multipart/form-data" style="display: inline-block">
-            <input type="file" name="file" id="file"><br/>
-            <input type="button" value="Импортировать" style="margin-top: 10px" onclick="importDictionary()">
-        </form>
-        <a href="#" onclick="closePopUpById('importDictionaryForm');" style="display: inline-block; margin: 10px">Назад</a>
+<div id="listCrosswords" class="listCrosswords">
+    <p>Доступные кроссворды:</p>
+    <select size="25" id="selectCrossword" class="selectCrossword" onchange="changeUserCrossword(this.value);">
+    </select>
+    <div>
+        <input type="submit" class="buttonStepOut" onclick="stepOut();" value="Выйти"/>
     </div>
 </div>
 

@@ -3,6 +3,7 @@ start();
 function start() {
     $("#formLogIn").css({"display": "block"});
     $("#formRegistration").css({"display": "none"});
+    $("#listCrosswords").css({"display": "none"});
 }
 
 function logIn() {
@@ -33,6 +34,7 @@ function callbackAuthorize(response) {
             window.location.href = "adminPage.html";
         }
         else {
+            localStorage.setItem('login', $("#login").val());
             window.location.href = "userPage.html";
         }
     }
@@ -236,4 +238,43 @@ function importDictionary() {
     }
     request.open("POST", "http://localhost:8080/admin/dictionary");
     request.send(new FormData(formElement));
+}
+
+function solvingCrossword() {
+    $("#listCrosswords").css({"display": "block"});
+    $(".buttonsAdmin").css({"display": "none"});
+
+    $.ajax({
+        type : "GET",
+        contentType : "application/json",
+        url : "http://localhost:8080/crosswords/list?login=" + localStorage.getItem('login'),
+        dataType : 'json',
+        success : function(response) {
+            $('#selectCrossword').find('option').remove();
+
+            for (let i = 0; i < response.length; i++) {
+                let desc = (response[i].original)
+                    ? response[i].name + " (новый)"
+                    : response[i].name;
+
+                $('#selectCrossword').append('<option value="' + (response[i].id + " " + response[i].original.toString()) + '">' + desc + '</option>\n');
+            }
+        },
+        error : function(e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    });
+}
+
+function changeUserCrossword(crossword) {
+    let result = crossword.split(" ");
+    localStorage.setItem('crosswordIsOriginal', result[1]);
+    localStorage.setItem('crosswordId', result[0]);
+    window.location.href = "userCrossword.html";
+}
+
+function stepOut() {
+    $("#listCrosswords").css({"display": "none"});
+    $(".buttonsAdmin").css({"display": "block"});
 }

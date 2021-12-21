@@ -8,6 +8,10 @@ h1 {
     text-align: center;
 }
 
+textarea {
+    resize: none; /* Запрещаем изменять размер */
+}
+
 .formLogIn {
     margin-top: 5%;
 }
@@ -146,4 +150,21 @@ td {
     width: 373px;
     margin-left: 4%;
     margin-top: 3%;
+}
+
+.selectCrossword {
+    width: 400px;
+    height: 300px;
+}
+
+.listCrosswords {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.buttonStepOut {
+    margin-top: 2%;
+    height: 40px;
+    width: 280px;
 }

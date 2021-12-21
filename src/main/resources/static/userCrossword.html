@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Кроссворд | Разгадывание кроссворда</title>
+    <link rel="stylesheet" href="css/Style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Автоматизированная система генерации и разгадывания классического кроссворда по выбранной теме</h1>
+<div class="main">
+    <div class="mainTable">
+        <table contenteditable="true">
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="selectWords">
+        <p>Количество доступнок подсказок: <span id="hints"></span></p>
+        <p>Определение</p>
+        <textarea id="textDef" rows="10" cols="45" name="text" readonly></textarea>
+        <button class="buttonEditCrossword" onclick="getHints();">Получить подсказку</button>
+        <button class="buttonEditCrossword" onclick="checkCrossword();">Проверить кроссворд</button>
+        <button class="buttonEditCrossword" onclick="saveSolution();">Сохранить решение</button>
+        <button class="buttonEditCrossword" onclick="out();">Выйти без сохранения</button>
+        <button class="buttonEditCrossword" onclick="aboutSystem();">О системе</button>
+    </div>
+</div>
+<!--<script src="js/Script.js"></script>
+<script src="js/CreateCrosswordScript.js"></script>-->
+<script src="js/solvingCrossword.js"></script>
+</body>
+</html>
