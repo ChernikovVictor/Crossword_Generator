@@ -128,12 +128,32 @@ function playCrossword(){
     window.location.href = "";
 }
 
-function editCrossword() {
+function editCrossword(selection) {
+    localStorage.setItem("instanceCrossword", selection);
     window.location.href = "crosswordAdmin.html";
 }
 
+function chooseCrossword() {
+    $.ajax({
+        type : "GET",
+        url : "http://localhost:8080/crosswords/list?login=admin ",
+        dataType : 'json',
+        success : function(response) {
+            $('#crosswords').append('<option disabled selected value></option>')
+            for (let i = 0; i < response.length; i++) {
+                $('#crosswords').append('<option value="' + response[i].id + '">' + response[i].name + '</option>')
+            }
+        },
+        error : function(e) {
+            alert(e.responseText)
+            console.log("ERROR: ", e);
+        }
+    });
+    document.getElementById("chooseCrosswordForm").style.display = "block";
+}
+
 function editDictionary(selection) {
-    var dictionaryName = selection[selection.selectedIndex].value;
+    let dictionaryName = selection[selection.selectedIndex].value;
     localStorage.setItem("dictionaryName", dictionaryName);
     window.location.href = "dictionary.html";
 }

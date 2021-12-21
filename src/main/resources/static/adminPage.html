@@ -37,7 +37,7 @@
       <button class="buttonMainMenu" onclick="createCrossword();">Создать кроссворд</button>
     </div>
     <div class="blockButtonMainMenu">
-      <button class="buttonMainMenu" onclick="editCrossword();">Изменить существующий кроссворд</button>
+      <button class="buttonMainMenu" onclick="chooseCrossword();">Изменить существующий кроссворд</button>
     </div>
     <div class="blockButtonMainMenu">
       <button class="buttonMainMenu" onclick="document.getElementById('createDictionaryForm').style.display = 'block';">Создать словарь понятий</button>
@@ -56,6 +56,15 @@
     </div>
     <div class="blockButtonMainMenu">
       <button class="buttonMainMenu" onclick="outAdmin();">Выйти из профиля</button>
+    </div>
+  </div>
+  <div class="popup" id="chooseCrosswordForm">
+    <div class="popup-content">
+      <p style="display: inline-block">Выберите кроссворд:</p>
+      <select id="crosswords" onchange="editCrossword(this.value)" style="width: 200px"></select>
+      <p>
+        <a href="#" onclick="closePopUpById('chooseCrosswordForm');">Назад</a>
+      </p>
     </div>
   </div>
   <div class="popup" id="chooseDictionaryForm">
