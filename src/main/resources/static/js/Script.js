@@ -33,8 +33,7 @@ function callbackAuthorize(response) {
             window.location.href = "adminPage.html";
         }
         else {
-            alert("Вы авторизовались под пользователем");
-            //window.location.href = "index.html";
+            window.location.href = "userPage.html";
         }
     }
     else if (response.result === "ERROR") {
@@ -123,6 +122,10 @@ function aboutDevelopers(){
 }
 function createCrossword() {
     window.location.href = "createCrossword.html";
+}
+
+function playCrossword(){
+    window.location.href = "";
 }
 
 function editCrossword() {
