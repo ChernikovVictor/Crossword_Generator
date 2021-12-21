@@ -115,6 +115,12 @@ function outAdmin() {
     window.location.href = "index.html";
 }
 
+function aboutSystem(){
+    window.open('http://localhost:8080/aboutSystem.html', '_blank');
+}
+function aboutDevelopers(){
+    window.location.href = "aboutDevelopers.html";
+}
 function createCrossword() {
     window.location.href = "createCrossword.html";
 }
