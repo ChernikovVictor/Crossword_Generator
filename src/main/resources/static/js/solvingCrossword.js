@@ -8,7 +8,7 @@ function start() {
     let original = localStorage.getItem('crosswordIsOriginal');
     let url = "http://localhost:8080/crosswords/crossword?id=" + localStorage.getItem('crosswordId') + "&login=";
 
-    if (original == 1) {
+    if (original === "true") {
         url += "admin";
     }
     else {
