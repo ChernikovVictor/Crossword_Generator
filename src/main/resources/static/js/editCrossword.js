@@ -183,6 +183,42 @@ function getMasc() {
         });
     });
 
+    let h = border.up;
+    let w = border.left;
+    let length = 0;
+    if(border.down === border.up){
+        length = Math.abs(border.left - border.right);
+        if(w>0 && crossword.cells[h][w-1].active
+            || w+length<crossword.cells[0].length
+            && crossword.cells[h][w+length].active){
+            masc = "1";
+        }
+        let rep1 = 0;
+        let rep2 = 0;
+        for(let i = w;i < w+length;i++){
+            if(!crossword.cells[h][i].active){
+                if(h>0 && crossword.cells[h-1][i].active ||
+                    h+1<crossword.cells.length && crossword.cells[h+1][i].active){
+                    masc = "1";
+                }
+            }
+            if(h>0 && crossword.cells[h-1][i].active){
+                rep1++;
+            }else{
+                rep1 = 0;
+            }
+
+            if(h<crossword.cells.length-1 && crossword.cells[h+1][i].active){
+                rep2++;
+            }else{
+                rep2 = 0;
+            }
+            if(rep1>1 || rep2>1){
+                masc = "1";
+            }
+        }
+    }
+
     return masc;
 }
 
