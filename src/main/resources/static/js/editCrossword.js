@@ -171,7 +171,7 @@ function printInfoAbouWord(x, y) {
 function getMasc() {
     let border = getBorders();
     let masc = "";
-
+    let isFirstWord = true;
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if ((row <= border.down && row >= border.up) &&
@@ -183,10 +183,20 @@ function getMasc() {
         });
     });
 
+    for(let i = 0;i<crossword.cells.length;i++){
+        for(let j = 0;j<crossword.cells[0].length;j++){
+            if(crossword.cells[i][j].active){
+                isFirstWord = false;
+                break;
+            }
+        }
+    }
+
     let h = border.up;
     let w = border.left;
     let length = 0;
-    console.log("left = "+border.left+" right = "+border.right)
+    let hasCrosses = false;
+
     if(border.down === border.up){
         length = Math.abs(border.left - border.right)+1;
         if(w>0 && crossword.cells[h][w-1].active
@@ -202,6 +212,8 @@ function getMasc() {
                     h+1<crossword.cells.length && crossword.cells[h+1][i].active){
                     masc = "1";
                 }
+            }else{
+                hasCrosses = true;
             }
             if(h>0 && crossword.cells[h-1][i].active){
                 rep1++;
@@ -233,7 +245,10 @@ function getMasc() {
                    w+1<crossword.cells[0].length && crossword.cells[i][w+1].active){
                     masc = "1";
                 }
+            }else{
+                hasCrosses = true;
             }
+
             if(w>0 && crossword.cells[i][w-1].active){
                 rep1++;
             }else{
@@ -252,6 +267,9 @@ function getMasc() {
     }
 
     if(Math.abs(border.up - border.down) > 1 && Math.abs(border.left-border.right) > 1){
+        masc = "1";
+    }
+    if(!isFirstWord && !hasCrosses){
         masc = "1";
     }
 

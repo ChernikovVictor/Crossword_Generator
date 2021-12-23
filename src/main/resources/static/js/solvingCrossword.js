@@ -43,12 +43,6 @@ function createUserTable(data) {
         if (!(i % width))
             tr = tBody.insertRow();
         let td = tr.insertCell();
-        td.addEventListener('keyup',function (){
-            alert("fdsf");
-            if($(this).text().length > 1){
-                $(this).text($(this).text().substr(0,1));
-            }
-        })
     }
 
 
