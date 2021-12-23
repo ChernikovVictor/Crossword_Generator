@@ -89,6 +89,26 @@ const handler = evt => {
 
 tBody.addEventListener('mousedown', handler);
 
+document.addEventListener('keyup', function(event) {
+    $('table tr').each(function(row){
+        $(this).find('td').each(function(cell){
+            if(crossword.cells[row][cell].originalValue !== null) {
+                if ($(this).text().length > 1) {
+                    $(this).text($(this).text().substr(0, 1));
+                }
+                if ($(this).text().length > 0 && $(this).text() !== $(this).text().toUpperCase()) {
+                    $(this).text($(this).text().toUpperCase());
+                }
+                if ($(this).text() < 'А' || $(this).text() > 'Я') {
+                    $(this).text('');
+                }
+            }else{
+                $(this).text('');
+            }
+        });
+    });
+});
+
 function printInfoAbouWord(x, y) {
     def = crossword.cells[x][y].definitions[0];
     $('#textDef').text(def);
