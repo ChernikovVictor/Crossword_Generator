@@ -42,14 +42,22 @@ function createUserTable(data) {
     for (let tr, i = 0; i < width * height; i++) {
         if (!(i % width))
             tr = tBody.insertRow();
-        tr.insertCell();
+        let td = tr.insertCell();
+        td.addEventListener('keyup',function (){
+            alert("fdsf");
+            if($(this).text().length > 1){
+                $(this).text($(this).text().substr(0,1));
+            }
+        })
     }
+
 
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             $(this).text(crossword.cells[row][cell].value);
         });
     });
+
 
     reColorizeUser();
 }
@@ -134,11 +142,11 @@ function getHints() {
 
                     $('#hints').text(--hints);
                 }
-                else {
-                    alert("Вы использовали все подсказки!");
-                }
+
             });
         });
+    } else {
+        alert("Вы использовали все подсказки!");
     }
 }
 

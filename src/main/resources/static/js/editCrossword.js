@@ -251,6 +251,9 @@ function getMasc() {
         }
     }
 
+    if(Math.abs(border.up - border.down) > 1 && Math.abs(border.left-border.right) > 1){
+        masc = "1";
+    }
 
 
     return masc;
