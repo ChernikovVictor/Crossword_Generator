@@ -57,6 +57,7 @@ public class CrosswordServiceImpl implements CrosswordService
     @Override
     public Crossword getById(String id, String login)
     {
+        System.out.println("id = "+id+" login"+login);
         return crosswordDao.getById(id, login).orElseThrow(() -> new RuntimeException("Кроссворд не найден"));
     }
 

@@ -186,6 +186,7 @@ function getMasc() {
     let h = border.up;
     let w = border.left;
     let length = 0;
+    console.log("left = "+border.left+" right = "+border.right)
     if(border.down === border.up){
         length = Math.abs(border.left - border.right);
         if(w>0 && crossword.cells[h][w-1].active
@@ -217,7 +218,40 @@ function getMasc() {
                 masc = "1";
             }
         }
+    }else if(border.left === border.right){
+        length = Math.abs(border.up - border.down);
+        if(h>0 && crossword.cells[h-1][w].active
+           || h+length<crossword.cells.length
+           && crossword.cells[h+length][w].active){
+            masc = "1";
+        }
+        let rep1 = 0;
+        let rep2 = 0;
+        for(let i = h;i < h+length;i++){
+            if(!crossword.cells[i][w].active){
+                if(w>0 && crossword.cells[i][w-1].active ||
+                   w+1<crossword.cells[0].length && crossword.cells[i][w+1].active){
+                    masc = "1";
+                }
+            }
+            if(w>0 && crossword.cells[i][w-1].active){
+                rep1++;
+            }else{
+                rep1 = 0;
+            }
+
+            if(w<crossword.cells[0].length-1 && crossword.cells[i][w+1].active){
+                rep2++;
+            }else{
+                rep2 = 0;
+            }
+            if(rep1>1 || rep2>1){
+                masc = "1";
+            }
+        }
     }
+
+
 
     return masc;
 }
@@ -286,9 +320,7 @@ function onChangeSelect(valueOption) {
                     countWord++;
                 }
             }
-            else {
-                crossword.cells[row][cell].active = false;
-            }
+
         });
     });
 
