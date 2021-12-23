@@ -188,7 +188,7 @@ function getMasc() {
     let length = 0;
     console.log("left = "+border.left+" right = "+border.right)
     if(border.down === border.up){
-        length = Math.abs(border.left - border.right);
+        length = Math.abs(border.left - border.right)+1;
         if(w>0 && crossword.cells[h][w-1].active
             || w+length<crossword.cells[0].length
             && crossword.cells[h][w+length].active){
@@ -219,7 +219,7 @@ function getMasc() {
             }
         }
     }else if(border.left === border.right){
-        length = Math.abs(border.up - border.down);
+        length = Math.abs(border.up - border.down)+1;
         if(h>0 && crossword.cells[h-1][w].active
            || h+length<crossword.cells.length
            && crossword.cells[h+length][w].active){
