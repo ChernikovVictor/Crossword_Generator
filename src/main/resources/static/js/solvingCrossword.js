@@ -96,12 +96,11 @@ document.addEventListener('keyup', function(event) {
                 if ($(this).text().length > 1) {
                     $(this).text($(this).text().substr(0, 1));
                 }
-                if ($(this).text().length > 0 && ($(this).text() < 'А' || $(this).text() > 'Я')) {
+                if ($(this).text().length > 0 && ($(this).text() < 'А' || $(this).text() > 'Я')
+                    && ($(this).text() < 'а' || $(this).text() > 'я')) {
                     $(this).text('');
                 }
-                if ($(this).text().length > 0 && $(this).text() !== $(this).text().toUpperCase()) {
-                    $(this).text($(this).text().toUpperCase());
-                }
+
             }else{
                 $(this).text('');
             }
@@ -132,10 +131,10 @@ function checkCrossword() {
         $(this).find('td').each(function(cell){
             if (crossword.cells[row][cell].active) {
                 crossword.cells[row][cell].value = $(this).text();
-
-                let color = (crossword.cells[row][cell].originalValue !== $(this).text())
-                    ? '#f53030'
-                    : '#61f530';
+                let color = '#61f530';
+                if(crossword.cells[row][cell].originalValue !== $(this).text().toUpperCase()){
+                    color = '#f53030';
+                }
 
                 $(this).css('background', color);
             }
