@@ -144,18 +144,23 @@ function checkCrossword() {
 
 function getHints() {
     let hints = $('#hints').text();
-
+    crossword.hints = hints;
     if (hints > 0) {
         $('table tr').each(function(row){
             $(this).find('td').each(function(cell){
-                if (row === range[1] && cell === range[0]) {
-                    $(this).text(crossword.cells[row][cell].originalValue);
+                try {
+                    if (row === range[1] && cell === range[0]) {
+                        if(crossword.cells[row][cell].active) {
+                            $(this).text(crossword.cells[row][cell].originalValue);
 
-                    $(this).css('background', '#61f530');
+                            $(this).css('background', '#61f530');
 
-                    $('#hints').text(--hints);
+                            $('#hints').text(--hints);
+                        }
+                    }
+                }catch (e){
+                    console.log(e);
                 }
-
             });
         });
     } else {

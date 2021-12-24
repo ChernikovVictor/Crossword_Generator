@@ -168,3 +168,10 @@ td {
     height: 40px;
     width: 280px;
 }
+.enableInput{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
