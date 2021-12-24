@@ -96,11 +96,11 @@ document.addEventListener('keyup', function(event) {
                 if ($(this).text().length > 1) {
                     $(this).text($(this).text().substr(0, 1));
                 }
+                if ($(this).text().length > 0 && ($(this).text() < 'А' || $(this).text() > 'Я')) {
+                    $(this).text('');
+                }
                 if ($(this).text().length > 0 && $(this).text() !== $(this).text().toUpperCase()) {
                     $(this).text($(this).text().toUpperCase());
-                }
-                if ($(this).text() < 'А' || $(this).text() > 'Я') {
-                    $(this).text('');
                 }
             }else{
                 $(this).text('');
