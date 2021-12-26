@@ -44,6 +44,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
 
+        word.setValue(word.getValue().toUpperCase(Locale.ROOT));
         String validationResult = CustomValidator.isValidWord(word, dictionary);
         if (!validationResult.equals(Constants.SUCCESS)) {
             throw new ValidationException(validationResult);
@@ -67,8 +68,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public void removeWord(String wordValue, String dictionaryName) throws IOException {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
+        String wordValueUpperCase = wordValue.toUpperCase(Locale.ROOT);
         Word word = dictionary.getWords().stream()
-                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(wordValue.toLowerCase(Locale.ROOT)))
+                .filter(w -> w.getValue().equals(wordValueUpperCase))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("В словаре нет такого понятия"));
         dictionary.getWords().remove(word);
@@ -79,11 +81,13 @@ public class DictionaryServiceImpl implements DictionaryService {
     public void updateWord(String oldValue, Word word, String dictionaryName) throws IOException {
         Dictionary dictionary = dictionaryDao.findByName(dictionaryName)
                 .orElseThrow(() -> new RuntimeException("Словаря с таким именем не существует"));
+        String oldValueUpperCase = oldValue.toUpperCase(Locale.ROOT);
         Word wordToUpdate = dictionary.getWords().stream()
-                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(oldValue.toLowerCase(Locale.ROOT)))
+                .filter(w -> w.getValue().equals(oldValueUpperCase))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("В словаре нет такого понятия"));
         dictionary.removeWord(wordToUpdate);
+        word.setValue(word.getValue().toUpperCase(Locale.ROOT));
         String validationResult = CustomValidator.isValidWord(word, dictionary);
         if (!validationResult.equals(Constants.SUCCESS)) {
             throw new RuntimeException(validationResult);
@@ -102,8 +106,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         final String regex = filter.replaceAll("1", ".")
                 .replaceAll("\\*", ".+")
-                .toLowerCase(Locale.ROOT);
-        words = words.stream().filter(word -> word.getValue().toLowerCase(Locale.ROOT).matches(regex))
+                .toUpperCase(Locale.ROOT);
+        words = words.stream().filter(word -> word.getValue().matches(regex))
                 .collect(Collectors.toList());
 
         return words;
@@ -184,7 +188,7 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
             String value = line.substring(0, indexOfFirstSpace).trim();
             String definition = line.substring(indexOfFirstSpace + 1).trim();
-            Word word = new Word(value, definition);
+            Word word = new Word(value.toUpperCase(Locale.ROOT), definition);
             String validationResult = CustomValidator.isValidWord(word, dictionary);
             if (!validationResult.equals(Constants.SUCCESS)) {
                 log.info("{} ({})", line, validationResult);

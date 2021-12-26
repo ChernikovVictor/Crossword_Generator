@@ -19,13 +19,13 @@ public class CustomValidator {
             return "Понятие должно состоять минимум из трех и максимум из пятнадцати букв";
         }
 
-        String russianLanguageRegex = "[а-яА-Я]+";
+        String russianLanguageRegex = "[А-Я]+";
         if (!word.getValue().matches(russianLanguageRegex)) {
             return "В понятии присутствуют символы, отличные от букв русского языка";
         }
 
         Optional<Word> duplicate = dictionary.getWords().stream()
-                .filter(w -> w.getValue().toLowerCase(Locale.ROOT).equals(word.getValue().toLowerCase(Locale.ROOT)))
+                .filter(w -> w.getValue().equals(word.getValue()))
                 .findAny();
         if (duplicate.isPresent()) {
             return String.format("В словаре уже есть такое понятие: %s - %s",
