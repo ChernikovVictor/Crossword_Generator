@@ -184,37 +184,34 @@ function validateNameCrossword() {
     const name = prompt('Укажите, пожалуйста, наименование кроссворда');
     if (name) {
         $.ajax({
-            type : "GET",
-            contentType : "application/json",
-            url : "http://localhost:8080/crosswords/list?login=" + localStorage.getItem('login'),
-            dataType : 'json',
-            success : function(response) {
-                let flag = false;
-
+            type: "GET",
+            contentType: "application/json",
+            url: "http://localhost:8080/crosswords/list?login=" + localStorage.getItem('login'),
+            dataType: 'json',
+            success: function (response) {
+                let isDuplicateExists = false;
+                let isOverwriteNeed = false;
                 for (let i = 0; i < response.length; i++) {
                     if (response[i].name === name) {
+                        isDuplicateExists = true;
                         const result = confirm('Такой кроссворд уже существует. Хотите перезаписать?');
                         if (result) {
-                            flag = true;
+                            isOverwriteNeed = true;
                             saveCrossword(name, crossword.id);
                         }
-                        else {
-                            validateNameCrossword();
-                        }
+                        break;
                     }
                 }
 
-                if (!flag) {
+                if (!isDuplicateExists) {
                     saveCrossword(name, null);
                 }
             },
-            error : function(e) {
+            error: function (e) {
                 alert("Error!")
                 console.log("ERROR: ", e);
             }
         });
-    } else {
-        validateNameCrossword();
     }
 }
 
