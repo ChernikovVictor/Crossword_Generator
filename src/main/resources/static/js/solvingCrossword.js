@@ -144,7 +144,6 @@ function checkCrossword() {
 
 function getHints() {
     let hints = $('#hints').text();
-    crossword.hints = hints;
     if (hints > 0) {
         $('table tr').each(function(row){
             $(this).find('td').each(function(cell){
@@ -166,6 +165,7 @@ function getHints() {
     } else {
         alert("Вы использовали все подсказки!");
     }
+    crossword.hints = hints;
 }
 
 function saveSolution() {
