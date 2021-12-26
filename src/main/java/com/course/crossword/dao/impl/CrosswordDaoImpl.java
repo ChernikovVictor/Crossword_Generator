@@ -54,4 +54,12 @@ public class CrosswordDaoImpl implements CrosswordDao {
         }
     }
 
+    @Override
+    public void createDirectoryForUserCrosswords(String login) throws IOException {
+        String path = CROSSWORDS_URL + PATH_SEPARATOR + login;
+        boolean isCreated = FileUtils.createDirectory(path);
+        if (!isCreated) {
+            throw new IOException("Не удалось создать директорию для хранения кроссвордов пользователя " + login);
+        }
+    }
 }

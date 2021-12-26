@@ -2,6 +2,7 @@ package com.course.crossword.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,5 +25,10 @@ public class FileUtils {
             log.error(e.getMessage(), e);
             return Collections.emptyList();
         }
+    }
+
+    public static boolean createDirectory(String path) {
+        File file = new File(path);
+        return file.mkdir();
     }
 }

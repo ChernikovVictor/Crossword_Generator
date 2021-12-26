@@ -13,4 +13,6 @@ public interface CrosswordDao {
     Optional<Crossword> getById(String id, String login);
 
     void save(Crossword crossword, String login) throws IOException;
+
+    void createDirectoryForUserCrosswords(String login) throws IOException;
 }
