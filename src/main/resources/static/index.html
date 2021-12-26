@@ -14,14 +14,14 @@
         <form id="formLogIn" class="logIn">
             <p class="directionLogIn">Войдите в систему</p>
             <p class="blockInput">
-                <label>Логин</label>
+                <label>Логин:</label>
                 <input id="login" type="text" class="inputLog">
             </p>
             <p class="blockInput">
-                <label>Пароль</label>
+                <label>Пароль:</label>
                 <input id="password" type="password" class="inputPass">
             </p>
-            <input type="submit" class="buttonLogin" onclick="logIn(); return false;" value="ВОЙТИ"/>
+            <input type="submit" class="buttonLogin" onclick="logIn(); return false;" style="margin-bottom: 15px; margin-left: 25%" value="ВОЙТИ"/>
             <a class="registration" onclick="registrationInSystem(); return false;" href="">
                 Зарегистрироваться
             </a>
@@ -30,16 +30,16 @@
         <form  id="formRegistration" class="logIn">
             <p class="directionLogIn">Зарегистрируйтесь в системе</p>
             <p class="blockInput">
-                <label>Логин</label>
+                <label>Логин:</label>
                 <input id="loginRegistration" type="text" class="inputLog">
             </p>
             <p class="blockInput">
-                <label>Пароль</label>
+                <label>Пароль:</label>
                 <input id="passwordFirstRegistration" type="password" class="inputPass">
             </p>
             <p class="blockInput">
-                <span>Повторите пароль</span>
-                <input id="passwordSecondRegistration" type="password" class="inputPass">
+                <span>Повторите пароль:</span>
+                <input id="passwordSecondRegistration" type="password" class="inputPass" style="margin-top: 10px; margin-left: 97px">
             </p>
             <input type="submit" class="buttonLogin" onclick="registration(); return false;" value="ЗАРЕГИСТРИРОВАТЬСЯ"/>
         </form>
