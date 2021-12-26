@@ -17,7 +17,7 @@ function loadDictionary() {
             }
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
@@ -30,7 +30,7 @@ function loadDictionary() {
             listCrossword = response;
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });

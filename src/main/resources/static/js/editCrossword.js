@@ -19,7 +19,7 @@ function start() {
             createTable(response.cells);
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
             //localStorage.setItem('instanceCrossword', e.responseText);
             //window.location.href = "crosswordAdmin.html";
@@ -288,7 +288,7 @@ function getMascWords(filter) {
             //flag = false;
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
@@ -442,7 +442,7 @@ function onClickSave() {
             window.location.href = "adminPage.html";
         },
         error : function(e) {
-            alert("error");
+            alert(e.responseText);
             console.log(e);
         }
     });

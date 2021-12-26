@@ -26,7 +26,7 @@ function start() {
             $('#hints').text(crossword.hints);
         },
         error : function(e) {
-            alert("error");
+            alert(e.responseText);
             console.log(e);
         }
     });
@@ -208,7 +208,7 @@ function validateNameCrossword() {
                 }
             },
             error: function (e) {
-                alert("Error!")
+                alert(e.responseText)
                 console.log("ERROR: ", e);
             }
         });
@@ -231,7 +231,7 @@ function saveCrossword(name, id) {
             window.location.href = "userPage.html";
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
