@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 @Data
 @NoArgsConstructor
@@ -17,12 +16,12 @@ public class Crossword implements Serializable {
     private Cell[][] cells;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0;i<cells.length;i++){
-            for(int j = 0;j<cells[0].length;j++){
-                builder.append(cells[i][j].getValue() == null ? "-" : cells[i][j].getValue()).append(" ");
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[0].length; j++) {
+                String originalValue = (cells[i][j].getOriginalValue() == null) ? "-" : cells[i][j].getOriginalValue();
+                builder.append(originalValue).append(" ");
             }
             builder.append("\n");
         }
