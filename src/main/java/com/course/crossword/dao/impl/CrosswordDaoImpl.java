@@ -26,7 +26,6 @@ public class CrosswordDaoImpl implements CrosswordDao {
     @Override
     public Optional<Crossword> getById(String id, String login) {
         List<Crossword> crosswords = getCrosswordsForUser(login);
-        System.out.println(crosswords);
         return crosswords.stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 
@@ -40,7 +39,6 @@ public class CrosswordDaoImpl implements CrosswordDao {
     public List<Crossword> getCrosswordsForUser(String login) {
         try {
             String path = CROSSWORDS_URL + PATH_SEPARATOR + login;
-            System.out.println(path);
             List<String> filenames = FileUtils.getAllFileNamesByPath(path);
             List<Crossword> result = new ArrayList<>();
             for (String filename : filenames) {
@@ -54,4 +52,12 @@ public class CrosswordDaoImpl implements CrosswordDao {
         }
     }
 
+    @Override
+    public void createDirectoryForUserCrosswords(String login) throws IOException {
+        String path = CROSSWORDS_URL + PATH_SEPARATOR + login;
+        boolean isCreated = FileUtils.createDirectory(path);
+        if (!isCreated) {
+            throw new IOException("Не удалось создать директорию для хранения кроссвордов пользователя " + login);
+        }
+    }
 }

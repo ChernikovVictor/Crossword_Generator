@@ -11,21 +11,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CrosswordApplicationTests {
 
-	@Autowired
-	CrosswordServiceImpl crosswordService;
-	@Test
-	void contextLoads() {
-	}
+    @Autowired
+    CrosswordServiceImpl crosswordService;
 
-	@Test
-	void generateCrossword(){
-		for (int i = 5; i < 21; i++)
-		{
-			for (int j = 5; j < 31; j++)
-			{
-				crosswordService.createCrossword(new CrosswordParametersDTO("name1",i,j,true,"Главный"));
-			}
-		}
-	}
+    @Test
+    void contextLoads() {
+    }
+
+    @Test
+    void generateCrossword() {
+        for (int i = 5; i < 31; i++) {
+            for (int j = 5; j < 31; j++) {
+                crosswordService.createCrossword(new CrosswordParametersDTO("name1", i, j, true, "Главный"));
+            }
+        }
+    }
 
 }

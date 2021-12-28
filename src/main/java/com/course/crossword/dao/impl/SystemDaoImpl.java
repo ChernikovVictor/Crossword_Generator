@@ -1,5 +1,6 @@
 package com.course.crossword.dao.impl;
 
+import com.course.crossword.dao.CrosswordDao;
 import com.course.crossword.dao.SystemDao;
 import com.course.crossword.model.system.Credentials;
 import com.course.crossword.util.FileUtils;
@@ -42,6 +43,8 @@ public class SystemDaoImpl implements SystemDao {
     public void save(Credentials credentials) throws IOException {
         String filepath = CREDENTIALS_URL + PATH_SEPARATOR + credentials.getLogin() + JSON_EXTENSION;
         jsonLoader.saveAsJson(credentials, filepath);
+        CrosswordDao crosswordDao = new CrosswordDaoImpl();
+        crosswordDao.createDirectoryForUserCrosswords(credentials.getLogin());
     }
 
 }

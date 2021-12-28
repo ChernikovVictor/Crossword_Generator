@@ -27,7 +27,7 @@ function ajaxPost() {
 			console.log(result);
 		},
 		error : function(e) {
-			alert("Error!")
+			alert(e.responseText)
 			console.log("ERROR: ", e);
 		}
 	});

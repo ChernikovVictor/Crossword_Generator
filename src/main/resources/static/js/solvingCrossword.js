@@ -26,7 +26,7 @@ function start() {
             $('#hints').text(crossword.hints);
         },
         error : function(e) {
-            alert("error");
+            alert(e.responseText);
             console.log(e);
         }
     });
@@ -161,7 +161,6 @@ function checkCrossword() {
 
 function getHints() {
     let hints = $('#hints').text();
-    crossword.hints = hints;
     if (hints > 0) {
         $('table tr').each(function(row){
             $(this).find('td').each(function(cell){
@@ -183,6 +182,7 @@ function getHints() {
     } else {
         alert("Вы использовали все подсказки!");
     }
+    crossword.hints = hints;
 }
 
 function saveSolution() {
@@ -201,37 +201,34 @@ function validateNameCrossword() {
     const name = prompt('Укажите, пожалуйста, наименование кроссворда');
     if (name) {
         $.ajax({
-            type : "GET",
-            contentType : "application/json",
-            url : "http://localhost:8080/crosswords/list?login=" + localStorage.getItem('login'),
-            dataType : 'json',
-            success : function(response) {
-                let flag = false;
-
+            type: "GET",
+            contentType: "application/json",
+            url: "http://localhost:8080/crosswords/list?login=" + localStorage.getItem('login'),
+            dataType: 'json',
+            success: function (response) {
+                let isDuplicateExists = false;
+                let isOverwriteNeed = false;
                 for (let i = 0; i < response.length; i++) {
                     if (response[i].name === name) {
+                        isDuplicateExists = true;
                         const result = confirm('Такой кроссворд уже существует. Хотите перезаписать?');
                         if (result) {
-                            flag = true;
+                            isOverwriteNeed = true;
                             saveCrossword(name, crossword.id);
                         }
-                        else {
-                            validateNameCrossword();
-                        }
+                        break;
                     }
                 }
 
-                if (!flag) {
+                if (!isDuplicateExists) {
                     saveCrossword(name, null);
                 }
             },
-            error : function(e) {
-                alert("Error!")
+            error: function (e) {
+                alert(e.responseText)
                 console.log("ERROR: ", e);
             }
         });
-    } else {
-        validateNameCrossword();
     }
 }
 
@@ -251,7 +248,7 @@ function saveCrossword(name, id) {
             window.location.href = "userPage.html";
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });

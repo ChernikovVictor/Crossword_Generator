@@ -22,7 +22,7 @@ function logIn() {
             callbackAuthorize(response);
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
@@ -106,7 +106,7 @@ function registrtionUser(body) {
             }
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
@@ -273,7 +273,7 @@ function solvingCrossword() {
             }
         },
         error : function(e) {
-            alert("Error!")
+            alert(e.responseText)
             console.log("ERROR: ", e);
         }
     });
