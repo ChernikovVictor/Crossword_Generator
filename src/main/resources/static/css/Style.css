@@ -107,8 +107,7 @@ textarea {
 }
 
 .mainTable {
-    width: 500px;
-    height: 500px;
+    height: 700px;
 }
 
 .tableCell {
@@ -121,8 +120,8 @@ table {
 }
 
 td {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     box-sizing: border-box;
     border: 1px solid #ccc;
     user-select: none;
