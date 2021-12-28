@@ -17,7 +17,15 @@ window.onload = function () {
     }
     document.getElementById("addWordFormSubmit").onclick = function () {
         var value = $("#addWordInputValue").val();
+        if (!value) {
+            alert("Понятие не может быть пустым!");
+            return;
+        }
         var definition = $("#addWordInputDefinition").val();
+        if (!definition) {
+            alert("Заполните определение для понятия!");
+            return;
+        }
         var body = {
             value: value,
             definition: definition

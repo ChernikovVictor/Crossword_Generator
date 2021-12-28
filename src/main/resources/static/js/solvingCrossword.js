@@ -49,7 +49,7 @@ function createUserTable(data) {
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             $(this).text(crossword.cells[row][cell].value);
-            $(this).attr('id',row+' '+cell);
+//            $(this).attr('id',row+' '+cell);
         });
     });
 
@@ -200,6 +200,11 @@ function saveSolution() {
 function validateNameCrossword() {
     const name = prompt('Укажите, пожалуйста, наименование кроссворда');
     if (name) {
+        var regex = /^[a-zа-яA-ZА-Я0-9_]*$/u;
+        if (!regex.test(name)) {
+            alert("Название содержит запрещенные символы!");
+            return;
+        }
         $.ajax({
             type: "GET",
             contentType: "application/json",

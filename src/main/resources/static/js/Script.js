@@ -200,6 +200,15 @@ function closePopUpById(id) {
 
 function createDictionary() {
     var dictionaryName = $("#createDictionaryInput").val();
+    if (!dictionaryName) {
+        alert("Имя словаря не может быть пустым");
+        return;
+    }
+    var regex = /^[a-zа-яA-ZА-Я0-9_]*$/u;
+    if (!regex.test(dictionaryName)) {
+        alert("Название содержит запрещенные символы!");
+        return;
+    }
     $.ajax({
         type : "GET",
         url : "http://localhost:8080/dictionaries/list",
@@ -245,7 +254,11 @@ function importDictionary() {
             closePopUpById("importDictionaryForm");
             alert("Словарь успешно импортирован");
         } else if (this.readyState === 4 && this.status !== 200) {
-            alert(this.responseText);
+            if (this.responseText === "String index out of range: -1") {
+                alert("Выберите файл для импортирования");
+            } else {
+                alert(this.responseText);
+            }
         }
     }
     request.open("POST", "http://localhost:8080/admin/dictionary");
