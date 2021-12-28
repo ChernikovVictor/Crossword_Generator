@@ -49,6 +49,7 @@ function createUserTable(data) {
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             $(this).text(crossword.cells[row][cell].value);
+            $(this).attr('id',row+' '+cell);
         });
     });
 
@@ -90,6 +91,7 @@ const handler = evt => {
 tBody.addEventListener('mousedown', handler);
 
 document.addEventListener('keyup', function(event) {
+    document.querySelectorAll('br').forEach((e)=>e.remove());
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if(crossword.cells[row][cell].originalValue !== null) {
@@ -100,12 +102,27 @@ document.addEventListener('keyup', function(event) {
                     && ($(this).text() < 'а' || $(this).text() > 'я')) {
                     $(this).text('');
                 }
-
             }else{
                 $(this).text('');
             }
         });
     });
+    /*switch (event.type) {
+        case 'keyup':
+            reColorizeUser();
+            console.log("keyup = "+range[1]+' '+range[0]);
+            if(document.getElementById(""+range[1]+" "+range[0]+"").innerText.length>0){
+                if(crossword.cells[0].length>range[0] && crossword.cells[range[1]][range[0]+1].active){
+                    range[0]++;
+                }else if(crossword.cells.length>range[1] && crossword.cells[range[1]+1][range[0]].active){
+                    range[1]++;
+                }
+                console.log("res = "+range[1]+' '+range[0]);
+                printInfoAbouWord(range[1], range[0]);
+            }
+            break;
+    }
+     */
 });
 
 function printInfoAbouWord(x, y) {
