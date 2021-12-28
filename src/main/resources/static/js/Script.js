@@ -179,6 +179,18 @@ function chooseDictionary() {
     document.getElementById("chooseDictionaryForm").style.display = "block";
 }
 
+function inputCrossName(){
+    console.log("inputCrossName");
+    let inp = document.getElementById("nameCrossword");
+    let letterNumber = /^[0-9a-zA-Zа-яА-ЯЁё]+$/;
+    for (let i = 0; i < inp.value.length; i++) {
+        if(!inp.value[i].match(letterNumber)){
+            inp.value = inp.value.replaceAll(inp.value[i],'');
+            i = 0;
+        }
+    }
+}
+
 function closePopUpById(id) {
     document.getElementById(id).style.display = "none";
     $('#dictionaries').find('option').remove();
