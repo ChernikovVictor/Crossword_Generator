@@ -440,7 +440,7 @@ document.addEventListener('keypress', function(event) {
                         crossword.cells[row][cell].definitions = null;
                     }
                     else {
-                        let index = crossword.cells[row][cell].definitions.indexOf(def);
+                        let index = crossword.cells[row][cell].definitions.indexOf(def[0]);
 
                         if (index !== -1) {
                             crossword.cells[row][cell].definitions.splice(index, 1);
