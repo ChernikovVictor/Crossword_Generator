@@ -138,14 +138,16 @@ public class CrosswordServiceImpl implements CrosswordService {
 
     @Override
     public List<String> extractAllWordsFromCrossword(Crossword crossword) {
-        DictionaryDTO dict = dictionaryService.getWords(crossword.getDictionaryName(), 0, "*", "length", "DESC");
-        List<Word> words = dict.getData();
-        Map<String, String> map = new HashMap<>();
-        words.forEach(word -> map.put(word.getDefinition(), word.getValue()));
+//        DictionaryDTO dict = dictionaryService.getWords(crossword.getDictionaryName(), 0, "*", "length", "DESC");
+//        List<Word> words = dict.getData();
+//        Map<String, String> map = new HashMap<>();
+//        words.forEach(word -> map.put(word.getDefinition(), word.getValue()));
+//        Set<String> definitions = extractAllDefinitions(crossword);
+//        List<String> result = new ArrayList<>();
+//        definitions.forEach(definition -> result.add(map.get(definition)));
+//        return result;
         Set<String> definitions = extractAllDefinitions(crossword);
-        List<String> result = new ArrayList<>();
-        definitions.forEach(definition -> result.add(map.get(definition)));
-        return result;
+        return new ArrayList<>(definitions);
     }
 
     private Set<String> extractAllDefinitions(Crossword crossword) {
