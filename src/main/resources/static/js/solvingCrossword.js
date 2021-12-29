@@ -1,4 +1,5 @@
 let crossword;
+let coordSelectedCell = [];
 /* добавление таблицы в разметку (просто пустые ячейки, для демонстрации) */
 const tBody = document.querySelector('tbody');
 
@@ -48,12 +49,17 @@ function createUserTable(data) {
 
     $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
-            //$(this).text(crossword.cells[row][cell].value);
+            $(this).text(crossword.cells[row][cell].value);
             //$(this)[0].id = row + "," + cell;
-            let text = (crossword.cells[row][cell].value === null)
+            /*let text = (crossword.cells[row][cell].value === null)
                 ? ""
                 : crossword.cells[row][cell].value;
-            $(this).append('<input id="' + row + "-" + cell + '" class="inputCell" value="' + text + '" onclick="onClickCell(this);"></input>');
+
+            let read = (crossword.cells[row][cell].active)
+                ? ""
+                : "readonly";
+
+            $(this).append('<input id="' + row + "-" + cell + '" class="inputCell" value="' + text + '" onclick="onClickCell(this);" ' + read +'></input>');*/
 //            $(this).attr('id',row+' '+cell);
         });
     });
@@ -67,16 +73,16 @@ function reColorizeUser() {
         $(this).find('td').each(function(cell){
             if ($(this).css('background') !== 'rgb(97, 245, 48) none repeat scroll 0% 0% / auto padding-box border-box') {
                 if (crossword.cells[row][cell].originalValue === null) {
-                    //$(this).css('background', '#4f4f4f');
-                    $(this).children("input").css({
+                    $(this).css('background', '#4f4f4f');
+                    /*$(this).children("input").css({
                         "background": "#4f4f4f"
-                    });
+                    });*/
                 }
                 else {
-                    //$(this).css('background', '#ffffff');
-                    $(this).children("input").css({
+                    $(this).css('background', '#ffffff');
+                    /*$(this).children("input").css({
                         "background": "#ffffff"
-                    });
+                    });*/
                 }
             }
         });
@@ -84,7 +90,7 @@ function reColorizeUser() {
 }
 
 let range = [-1, -1];
-/*const handler = evt => {
+const handler = evt => {
     const tr = evt.target.closest('tr');
     const getCoords = () => [                   // функция получения табличных координат мыши
         [...tr.cells].indexOf(evt.target),        // индекс ячейки в строке (X-координата)
@@ -97,23 +103,25 @@ let range = [-1, -1];
             printInfoAbouWord(range[1], range[0]);
             break;
     }
-};*/
+};
 
-//tBody.addEventListener('mousedown', handler);
+tBody.addEventListener('mousedown', handler);
 
-function onClickCell(cell) {
+/*function onClickCell(cell) {
     let idCell = cell.id.split('-');
+    coordSelectedCell.push(Number(idCell[0]));
+    coordSelectedCell.push(Number(idCell[1]));
 
     reColorizeUser();
     //range = getCoords();
     //console.log(cell.id);
     printInfoAbouWord(idCell[0], idCell[1]);
-}
+}*/
 
 document.addEventListener('keyup', function(event) {
     document.querySelectorAll('br').forEach((e)=>e.remove());
 
-    for (let i = 0; i < crossword.cells.length; i++) {
+    /*for (let i = 0; i < crossword.cells.length; i++) {
         for (let j = 0; j < crossword.cells[0].length; j++) {
             if(crossword.cells[i][j].originalValue !== null) {
                 if (document.getElementById(i + "-" + j).value.length > 1) {
@@ -131,9 +139,9 @@ document.addEventListener('keyup', function(event) {
                 document.getElementById(i + "-" + j).value = '';
             }
         }
-    }
+    }*/
 
-    /*$('table tr').each(function(row){
+    $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if(crossword.cells[row][cell].originalValue !== null) {
                 if ($(this).text().length > 1) {
@@ -147,8 +155,8 @@ document.addEventListener('keyup', function(event) {
                 $(this).text('');
             }
         });
-    });*/
-    switch (event.type) {
+    });
+    /*switch (event.type) {
         case 'keyup':
             reColorizeUser();
             console.log("keyup = "+range[1]+' '+range[0]);
@@ -157,9 +165,6 @@ document.addEventListener('keyup', function(event) {
 
             range[0] = Number(range[0]);
             range[1] = Number(range[1]);
-
-            //let a = Number(range[0]) + 1;
-            //let b = Number(range[1]) + 1;
 
             if(event.path[0].value.length>0){
                 if(crossword.cells[0].length>range[0] && crossword.cells[range[1]][range[0]+1].active){
@@ -172,18 +177,31 @@ document.addEventListener('keyup', function(event) {
                 printInfoAbouWord(range[0], range[1]);
             }
             break;
-    }
+    }*/
 });
 
 function printInfoAbouWord(x, y) {
     def = crossword.cells[x][y].definitions[0];
+
+    /*if (crossword.cells[x][y].definitions.length > 1) {
+        if (crossword.cells[x][y + 1]) {
+            def = crossword.cells[x][y + 1].definitions;
+        }
+        else if (crossword.cells[x][y - 1]) {
+            def = crossword.cells[x][y - 1].definitions;
+        }
+    }
+    else {
+        def = crossword.cells[x][y].definitions;
+    }*/
+
     $('#textDef').text(def);
 
-    for (let i = 0; i < crossword.cells.length; i++) {
+    /*for (let i = 0; i < crossword.cells.length; i++) {
         for (let j = 0; j < crossword.cells[0].length; j++) {
             if (crossword.cells[x][y].originalValue !== "" && crossword.cells[x][y].originalValue !== null) {
                 if (crossword.cells[i][j].definitions != null &&
-                    crossword.cells[i][j].definitions.indexOf(def) !== -1) { //&&
+                    crossword.cells[i][j].definitions.indexOf(def[0]) !== -1) { //&&
                     //$(this).children("input").css('background') !== 'rgb(97, 245, 48) none repeat scroll 0% 0% / auto padding-box border-box') {
 
                     document.getElementById(i + "-" + j).style.background = "#f8e04c";
@@ -191,9 +209,9 @@ function printInfoAbouWord(x, y) {
                 }
             }
         }
-    }
+    }*/
 
-    /*$('table tr').each(function(row){
+    $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if (crossword.cells[x][y].originalValue !== "" && crossword.cells[x][y].originalValue !== null) {
                 if (crossword.cells[row][cell].definitions != null &&
@@ -204,11 +222,11 @@ function printInfoAbouWord(x, y) {
                 }
             }
         });
-    });*/
+    });
 }
 
 function checkCrossword() {
-    for (let i = 0; i < crossword.cells.length; i++) {
+    /*for (let i = 0; i < crossword.cells.length; i++) {
         for (let j = 0; j < crossword.cells[0].length; j++) {
             if (crossword.cells[i][j].active) {
                 crossword.cells[i][j].value = $(this).text();
@@ -220,9 +238,9 @@ function checkCrossword() {
                 //$(this).children("input").css('background', color);
             }
         }
-    }
+    }*/
 
-    /*$('table tr').each(function(row){
+    $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if (crossword.cells[row][cell].active) {
                 crossword.cells[row][cell].value = $(this).text();
@@ -234,7 +252,7 @@ function checkCrossword() {
                 $(this).css('background', color);
             }
         });
-    });*/
+    });
 }
 
 function getHints() {
@@ -264,21 +282,21 @@ function getHints() {
 }
 
 function saveSolution() {
-    for (let i = 0; i < crossword.cells.length; i++) {
+    /*for (let i = 0; i < crossword.cells.length; i++) {
         for (let j = 0; j < crossword.cells[0].length; j++) {
             if (crossword.cells[i][j].active) {
                 crossword.cells[i][j].value = $(this).children("input").text();
             }
         }
-    }
+    }*/
 
-    /*$('table tr').each(function(row){
+    $('table tr').each(function(row){
         $(this).find('td').each(function(cell){
             if (crossword.cells[row][cell].active) {
                 crossword.cells[row][cell].value = $(this).text();
             }
         });
-    });*/
+    });
 
     validateNameCrossword();
 }
