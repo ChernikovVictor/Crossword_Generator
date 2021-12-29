@@ -18,4 +18,6 @@ public interface CrosswordService {
 
     String createCrossword(CrosswordParametersDTO crosswordParametersDTO);
 
+    List<String> extractAllWordsFromCrossword(Crossword crossword);
+
 }

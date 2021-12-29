@@ -9,6 +9,7 @@ import com.course.crossword.model.Constants;
 import com.course.crossword.model.crossword.Cell;
 import com.course.crossword.model.crossword.Crossword;
 import com.course.crossword.model.crossword.builder.CrosswordBuilder;
+import com.course.crossword.model.dictionary.Word;
 import com.course.crossword.service.CrosswordService;
 import com.course.crossword.service.DictionaryService;
 import com.course.crossword.util.CustomValidator;
@@ -17,7 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -128,5 +134,30 @@ public class CrosswordServiceImpl implements CrosswordService {
         crossword = crosswordBuilder.buildCrossword();
         log.info(crossword.toString());
         return crossword;
+    }
+
+    @Override
+    public List<String> extractAllWordsFromCrossword(Crossword crossword) {
+        DictionaryDTO dict = dictionaryService.getWords(crossword.getDictionaryName(), 0, "*", "length", "DESC");
+        List<Word> words = dict.getData();
+        Map<String, String> map = new HashMap<>();
+        words.forEach(word -> map.put(word.getDefinition(), word.getValue()));
+        Set<String> definitions = extractAllDefinitions(crossword);
+        List<String> result = new ArrayList<>();
+        definitions.forEach(definition -> result.add(map.get(definition)));
+        return result;
+    }
+
+    private Set<String> extractAllDefinitions(Crossword crossword) {
+        Set<String> definitions = new HashSet<>();
+        Cell[][] cells = crossword.getCells();
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                if (cells[i][j].isActive()) {
+                    definitions.addAll(cells[i][j].getDefinitions());
+                }
+            }
+        }
+        return definitions;
     }
 }
