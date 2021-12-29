@@ -330,7 +330,7 @@ function processingResponse(response) {
     $('#selectDictionary').find('option').remove();
 
     for (let i = 0; i < response.data.length; i++) {
-        if (wordsRemoveDictionary.indexOf(response.data[i].value) === -1) {
+        if (wordsRemoveDictionary.indexOf(response.data[i].definition) === -1) {
             allWordsObjectDictionary.push(response.data[i]);
             $('#selectDictionary').append('<option value="' + response.data[i].value + '">' + response.data[i].value + '</option>\n');
         }
@@ -377,7 +377,9 @@ function onChangeSelect(valueOption) {
         });
     });
 
-    wordsRemoveDictionary[wordsRemoveDictionary.length] = valueOption;
+    let index = findElement(allWordsObjectDictionary, valueOption);
+
+    wordsRemoveDictionary.push(allWordsObjectDictionary[index].definition);
     $('#selectDictionary').find('option').remove();
 }
 
