@@ -46,4 +46,9 @@ public class CrosswordController {
         }
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping(value = "/words")
+    public List<String> extractAllWordsFromCrossword(@RequestBody Crossword crossword) {
+        return crosswordService.extractAllWordsFromCrossword(crossword);
+    }
 }
