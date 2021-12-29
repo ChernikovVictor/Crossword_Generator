@@ -175,3 +175,10 @@ td {
     -o-user-select: none;
     user-select: none;
 }
+
+.inputCell {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-transform: uppercase;
+}
