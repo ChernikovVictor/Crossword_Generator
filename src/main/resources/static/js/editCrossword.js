@@ -16,13 +16,32 @@ function start() {
         dataType : 'json',
         success : function(response) {
             crossword = response;
-            createTable(response.cells);
+            getWordsCrossword();
+            //createTable(response.cells);
         },
         error : function(e) {
             alert(e.responseText)
             console.log("ERROR: ", e);
             //localStorage.setItem('instanceCrossword', e.responseText);
             //window.location.href = "crosswordAdmin.html";
+        }
+    });
+}
+
+function getWordsCrossword() {
+    $.ajax({
+        type : "POST",
+        contentType : "application/json",
+        url : "http://localhost:8080/crosswords/words",
+        data : JSON.stringify(crossword),
+        dataType : 'json',
+        success : function(response) {
+            wordsRemoveDictionary = response;
+            createTable(crossword.cells);
+        },
+        error : function(e) {
+            alert(e.responseText);
+            console.log(e);
         }
     });
 }
@@ -133,7 +152,20 @@ function reColorize() {
 }
 
 function printInfoAbouWord(x, y) {
-    def = crossword.cells[x][y].definitions[0];
+    //def = crossword.cells[x][y].definitions[0];
+
+    if (crossword.cells[x][y].definitions.length > 1) {
+        if (crossword.cells[x][y + 1]) {
+            def = crossword.cells[x][y + 1].definitions;
+        }
+        else if (crossword.cells[x][y - 1]) {
+            def = crossword.cells[x][y - 1].definitions;
+        }
+    }
+    else {
+        def = crossword.cells[x][y].definitions;
+    }
+
     let firstPosition, lastPosition;
     let flag = true;
 
@@ -148,7 +180,7 @@ function printInfoAbouWord(x, y) {
 
             if (crossword.cells[x][y].originalValue !== "" && crossword.cells[x][y].originalValue !== null) {
                 if (crossword.cells[row][cell].definitions != null &&
-                    crossword.cells[row][cell].definitions.indexOf(def) !== -1) {
+                    crossword.cells[row][cell].definitions.indexOf(def[0]) !== -1) {
                     $(this).css('background', '#f8e04c');
 
                     if (flag) {
